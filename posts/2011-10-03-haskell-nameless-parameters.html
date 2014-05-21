@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>AtnNn.com - Writing Haskell Functions With Many Nameless Parameters</title>
+        <link rel="stylesheet" type="text/css" href="../css/default.css" />
+    </head>
+    <body>
+        <div id="header">
+            <div id="logo">
+                <a href="../">Etienne Laurin</a>
+            </div>
+            <div id="navigation">
+                <a href="../">Home</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../archive.html">Archive</a>
+            </div>
+        </div>
+
+        <div id="content">
+            <h1>Writing Haskell Functions With Many Nameless Parameters</h1>
+
+            <div class="info">
+    Posted on October  3, 2011
+    
+</div>
+
+<p>Although it could be considered bad style, it is often useful to have functions that take a large amount of similar parameters that vary in type. I am going to demonstrate a technique that allows to write such functions without naming these parameters and making the function more readable.</p>
+<p>The function I will use for demonstration is an example of a common pattern when working with JSON data.</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">{-# LANGUAGE UnicodeSyntax, OverloadedStrings #-}</span>
+
+<span class="kw">import </span><span class="dt">Data.Aeson</span>
+<span class="kw">import </span><span class="dt">Data.Aeson.Types</span>
+<span class="kw">import </span><span class="dt">Data.Text</span>
+
+person <span class="ot">∷</span> <span class="dt">String</span> <span class="ot">→</span> <span class="dt">Float</span> <span class="ot">→</span> <span class="dt">Bool</span> <span class="ot">→</span> <span class="dt">Value</span>
+person name height over18 <span class="fu">=</span> object [
+  <span class="st">&quot;name&quot;</span> <span class="fu">.=</span> name,
+  <span class="st">&quot;height&quot;</span> <span class="fu">.=</span> height,
+  <span class="st">&quot;over18&quot;</span> <span class="fu">.=</span> over18]</code></pre>
+<p>The name of each parameter is repeated three times. Writing many such functions is often done by copying and pasting, which is a red flag and a possible source of errors.</p>
+<p>In an attempt to write reusable code, we can define a simple function that builds the result in small steps.</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">field <span class="ot">∷</span> <span class="dt">ToJSON</span> a <span class="ot">⇒</span> <span class="dt">Text</span> <span class="ot">→</span> [<span class="dt">Pair</span>] <span class="ot">→</span> a <span class="ot">→</span> [<span class="dt">Pair</span>]
+field k d v <span class="fu">=</span>  (k, toJSON v) <span class="fu">:</span> d</code></pre>
+<p>The order of the arguments is important because it fits well into the <code>$-</code> combinator. This combinator is the key to the whole exercise. It builds our desired multi-argument function without having to name the arguments.</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">infixr</span> <span class="dv">3</span> <span class="fu">$-</span>
+(<span class="fu">$-</span>) <span class="ot">∷</span> (d <span class="ot">→</span> a <span class="ot">→</span> e) <span class="ot">→</span> (e <span class="ot">→</span> k) <span class="ot">→</span> d <span class="ot">→</span> a <span class="ot">→</span> k
+(<span class="fu">$-</span>) f g d a <span class="fu">=</span> g <span class="fu">$</span> f d a</code></pre>
+<p>(Some readers may recognise this relative of the infamous cartoon face operator <code>((.).(.))</code>)</p>
+<p>We can now rewrite the person function.</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">person' <span class="ot">∷</span> <span class="dt">String</span> <span class="ot">→</span> <span class="dt">Float</span> <span class="ot">→</span> <span class="dt">Bool</span> <span class="ot">→</span> <span class="dt">Value</span>
+person' <span class="fu">=</span> (<span class="fu">$</span>[])
+  <span class="fu">$</span>  field <span class="st">&quot;name&quot;</span>
+  <span class="fu">$-</span> field <span class="st">&quot;height&quot;</span>
+  <span class="fu">$-</span> field <span class="st">&quot;over18&quot;</span>
+  <span class="fu">$-</span> object</code></pre>
+<p>The first part of the function body, <code>($[])</code>, is the initial value used to build our object. The last part, <code>$- object</code> transforms the list that was built incrementally into the final result.</p>
+<p>This technique becomes more powerful when you write other helper functions. For example, we can also have another function that ignores <code>Nothing</code>.</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell">optfield <span class="ot">∷</span> <span class="dt">ToJSON</span> a <span class="ot">⇒</span> <span class="dt">Text</span> <span class="ot">→</span> [<span class="dt">Pair</span>] <span class="ot">→</span> <span class="dt">Maybe</span> a <span class="ot">→</span> [<span class="dt">Pair</span>]
+optfield k d (<span class="dt">Just</span> v) <span class="fu">=</span> field k d v
+optfield _ d <span class="dt">Nothing</span> <span class="fu">=</span> d</code></pre>
+<p>The <code>$-</code> combinator’s usefulness is not limited to building JSON objects. It can be used to write many functions that need to combine heterogeneous values for which simple utility functions such as field and optfield can be written. Functions written in this style make cleaner, less repetitive code.</p>
+
+        </div>
+        <div id="footer">
+            Site proudly generated by
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+        </div>
+    </body>
+</html>
