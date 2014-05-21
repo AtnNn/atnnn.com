@@ -9,11 +9,14 @@ all: _site
 diff:
 	$(sitegit) diff gh-pages
 
-.PHONY: publish
-publish: _site
+.PHONY: commit
+commit: _site
 	$(sitegit) add .
 	$(sitegit) commit -am "`date` `cd .. && git log -1 HEAD --pretty=format:%H`"
 	git fetch _site gh-pages:gh-pages
+
+publish: commit
+	git push --all
 
 .PHONY: rebuild
 rebuild: build_mode = rebuild
