@@ -11,6 +11,7 @@ diff:
 
 .PHONY: commit
 commit: _site
+	test -z "`git status --porcelain`" || ( git status; false)
 	$(sitegit) add .
 	$(sitegit) commit -am "`date` `cd .. && git log -1 HEAD --pretty=format:%H`"
 	git fetch _site gh-pages:gh-pages
