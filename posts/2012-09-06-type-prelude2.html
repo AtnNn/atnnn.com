@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>My Hakyll Blog - type-prelude and GHC 7.6.1</title>
+        <link rel="stylesheet" type="text/css" href="../css/default.css" />
+    </head>
+    <body>
+        <div id="header">
+            <div id="logo">
+                <a href="../">My Hakyll Blog</a>
+            </div>
+            <div id="navigation">
+                <a href="../">Home</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../archive.html">Archive</a>
+            </div>
+        </div>
+
+        <div id="content">
+            <h1>type-prelude and GHC 7.6.1</h1>
+
+            <div class="info">
+    Posted on September  6, 2012
+    
+</div>
+
+<p>The <a href="http://www.haskell.org/ghc/docs/7.6.1/html/users_guide/release-7-6-1.html">new release of GHC</a> has many new features. <a href="https://plus.google.com/102696032232347740796/posts/bEiZmixWJgB">Deferred type errors</a> are very useful but the other features are a lot more fun. It is now a lot easier to encode invariants, information and computation at the type level. How much of the prelude can be ported, and how difficult is it to port?</p>
+<p>All the code from this article is available in the <a href="http://hackage.haskell.org/package/type-prelude">type-prelude package on hackage</a>. Integer</p>
+<p>The prelude has an Integer type that can represent any positive or negative integer. GHC has a new feature, data kind promotion, which automatically promotes data types and constructors into data kinds and types when it is possible. It is not possible to promote this type because its implementation is hidden.</p>
+<p>GHC has a Nat kind which allows any natural number to be used as a type, but they cannot be used to replace Integer.</p>
+<p>The <code>Prelude.Type.Integer</code> module provides the <code>Integer</code> kind, implemented as an unbounded list of bits using twos-complement. The <code>I</code> class converts small <code>Nat</code>s into Integers.</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Integer</span> <span class="fu">=</span> <span class="dt">One</span> <span class="dt">Integer</span> <span class="fu">|</span> <span class="dt">Zero</span> <span class="dt">Integer</span> <span class="fu">|</span> <span class="dt">Ones</span> <span class="fu">|</span> <span class="dt">Zeros</span>
+
+<span class="kw">type</span> family <span class="dt">I</span> (<span class="ot">a ::</span> <span class="dt">Nat</span>)<span class="ot"> ::</span> <span class="dt">Integer</span>
+<span class="kw">type</span> <span class="kw">instance</span> <span class="dt">I</span> <span class="dv">0</span> <span class="fu">=</span> <span class="dt">Zeros</span>
+<span class="kw">type</span> <span class="kw">instance</span> <span class="dt">I</span> <span class="dv">1</span> <span class="fu">=</span> <span class="dt">One</span> <span class="dt">Zeros</span>
+<span class="kw">type</span> <span class="kw">instance</span> <span class="dt">I</span> <span class="dv">2</span> <span class="fu">=</span> <span class="dt">Zero</span> (<span class="dt">One</span> (<span class="dt">Zeros</span>))
+<span class="kw">type</span> <span class="kw">instance</span> <span class="dt">I</span> <span class="dv">3</span> <span class="fu">=</span> <span class="dt">One</span> (<span class="dt">One</span> <span class="dt">Zeros</span>)
+<span class="kw">type</span> <span class="kw">instance</span> <span class="dt">I</span> <span class="dv">4</span> <span class="fu">=</span> <span class="dt">Zero</span> (<span class="dt">Zero</span> (<span class="dt">One</span> <span class="dt">Zeros</span>))</code></pre>
+<p>Three extra type functions allow working with <code>Integer</code>s as if they really were lists of <code>Bool</code>s.</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> family <span class="dt">IntegerHead</span> (<span class="ot">i ::</span> <span class="dt">Integer</span>)<span class="ot"> ::</span> <span class="dt">Bool</span>
+<span class="kw">type</span> family <span class="dt">IntegerTail</span> (<span class="ot">i ::</span> <span class="dt">Integer</span>)<span class="ot"> ::</span> <span class="dt">Integer</span>
+<span class="kw">type</span> family <span class="dt">IntegerCons</span> (<span class="ot">b ::</span> <span class="dt">Bool</span>) (<span class="ot">i ::</span> <span class="dt">Integer</span>)<span class="ot"> ::</span> <span class="dt">Integer</span></code></pre>
+<p>Most of the functions and operators from <code>Num</code> and <code>Integral</code> can be implemented very easily for this <code>Integer</code> kind. For example:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> family <span class="dt">Negate</span> (<span class="ot">a ::</span> k)<span class="ot"> ::</span> k
+<span class="kw">type</span> <span class="kw">instance</span> <span class="dt">Negate</span> a <span class="fu">=</span> <span class="dt">Complement</span> a <span class="fu">+</span> <span class="dt">I</span> <span class="dv">1</span>
+
+<span class="kw">type</span> family   (<span class="ot">a ::</span> k) <span class="fu">*</span> (<span class="ot">b ::</span> k)<span class="ot"> ::</span> k
+<span class="kw">type</span> <span class="kw">instance</span> <span class="dt">Zeros</span>    <span class="fu">*</span> j <span class="fu">=</span> <span class="dt">Zeros</span>
+<span class="kw">type</span> <span class="kw">instance</span> <span class="dt">Ones</span>     <span class="fu">*</span> j <span class="fu">=</span> <span class="dt">Negate</span> j
+<span class="kw">type</span> <span class="kw">instance</span> (<span class="dt">Zero</span> i) <span class="fu">*</span> j <span class="fu">=</span> <span class="dt">IntegerCons</span> <span class="dt">False</span> (i <span class="fu">*</span> j)
+<span class="kw">type</span> <span class="kw">instance</span> (<span class="dt">One</span> i)  <span class="fu">*</span> j <span class="fu">=</span> j <span class="fu">+</span> <span class="dt">IntegerCons</span> <span class="dt">False</span> (i <span class="fu">*</span> j)</code></pre>
+<h2 id="proxy">Proxy</h2>
+<p>Constructors, when promoted, becomes types. But these types do not have any values. The <code>Prelude.Type.Value</code> provides the <code>T</code> type (known elsewhere as <code>Proxy</code>).</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">T</span> a <span class="fu">=</span> <span class="dt">T</span></code></pre>
+<p>It also provides a method of converting a <code>T</code> into the value of its associated type.</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">class</span> <span class="dt">Value</span> (<span class="ot">a ::</span> k) (<span class="ot">t ::</span> <span class="fu">*</span>) <span class="fu">|</span> k <span class="ot">-&gt;</span> t <span class="kw">where</span><span class="ot"> value ::</span> <span class="dt">T</span> a <span class="ot">-&gt;</span> t</code></pre>
+<p>The <code>Value</code> instances for Integers converts each constructor into its corresponding value.</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">Value</span> <span class="dt">Zeros</span> <span class="dt">Prelude.Integer</span> <span class="kw">where</span> value _ <span class="fu">=</span> <span class="dv">0</span>
+<span class="kw">instance</span> <span class="dt">Value</span> <span class="dt">Ones</span> <span class="dt">Prelude.Integer</span> <span class="kw">where</span> value _ <span class="fu">=</span> <span class="fu">-</span><span class="dv">1</span>
+<span class="kw">instance</span> (<span class="dt">Value</span> i <span class="dt">Prelude.Integer</span>) <span class="ot">=&gt;</span> <span class="dt">Value</span> (<span class="dt">One</span> i) <span class="dt">Prelude.Integer</span>
+    <span class="kw">where</span> value _ <span class="fu">=</span> shift (value (<span class="dt">T</span><span class="ot">::</span><span class="dt">T</span> i)) <span class="dv">1</span> <span class="fu">Prelude.+</span> <span class="dv">1</span>
+<span class="kw">instance</span> (<span class="dt">Value</span> i <span class="dt">Prelude.Integer</span>) <span class="ot">=&gt;</span> <span class="dt">Value</span> (<span class="dt">Zero</span> i) <span class="dt">Prelude.Integer</span>
+    <span class="kw">where</span> value _ <span class="fu">=</span> shift (value (<span class="dt">T</span><span class="ot">::</span><span class="dt">T</span> i)) <span class="dv">1</span></code></pre>
+<p>The <code>T::T</code> idiom is very common in code that uses <code>Prelude.Type</code>. It is made even more useful when using the <code>Show</code> instance for <code>T</code>.</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> (<span class="dt">Value</span> a t, <span class="dt">Prelude.Show</span> t) <span class="ot">=&gt;</span> <span class="dt">Prelude.Show</span> (<span class="dt">T</span> a) <span class="kw">where</span>
+   show _ <span class="fu">=</span> Prelude.show (value (<span class="dt">T</span><span class="ot">::</span><span class="dt">T</span> a))</code></pre>
+<p>It allows easy type-level programming in ghci.</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">Prelude.Type</span><span class="fu">&gt;</span> <span class="dt">T</span><span class="ot">::</span><span class="dt">T</span> (<span class="dt">One</span> (<span class="dt">Zero</span> <span class="dt">Ones</span>))
+<span class="fu">-</span><span class="dv">3</span></code></pre>
+<h2 id="lists">Lists</h2>
+<p>The list type has two well known constructors which GHC promotes into types. To avoid confusion, the cons and nil types need to be prefixed with a single quote.</p>
+<p>Converting list functions into type-level functions is often very straightforward. For example, the last function can be written like this.</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> family <span class="dt">Last</span> (<span class="ot">a ::</span> [k])<span class="ot"> ::</span> k
+<span class="kw">type</span> <span class="kw">instance</span> <span class="dt">Last</span> <span class="ch">'[] = Error &quot;Last_: empty list&quot;</span>
+<span class="kw">type</span> <span class="kw">instance</span> <span class="dt">Last</span> (x <span class="ch">': y '</span><span class="fu">:</span> xs) <span class="fu">=</span> <span class="dt">Last</span> (y <span class="ch">': xs)</span>
+<span class="kw">type</span> <span class="kw">instance</span> <span class="dt">Last</span> (x <span class="ch">': '</span>[]) <span class="fu">=</span> x</code></pre>
+<p>And it works:</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">Prelude.Type.Families</span><span class="fu">&gt;</span> <span class="dt">T</span><span class="ot">::</span><span class="dt">T</span> (<span class="dt">Last</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>])
+<span class="dv">3</span></code></pre>
+<h2 id="type-families-vs-type-classes">Type Families vs Type Classes</h2>
+<p>The <code>Last</code> function can also be implemented as a type class.</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">class</span> <span class="dt">Last</span> (<span class="ot">l ::</span> [a]) (<span class="ot">x ::</span> a) <span class="fu">|</span> l <span class="ot">-&gt;</span> x
+<span class="kw">instance</span> <span class="dt">Error</span> <span class="st">&quot;Last: empty list&quot;</span> <span class="ot">=&gt;</span> <span class="dt">Last</span> <span class="ch">'[] a</span>
+<span class="kw">instance</span> a <span class="fu">~</span> b <span class="ot">=&gt;</span> <span class="dt">Last</span> <span class="ch">'[a] b</span>
+<span class="kw">instance</span> <span class="dt">Last</span> (y <span class="ch">': xs) a =&gt; Last (x '</span><span class="fu">:</span> y <span class="ch">': xs) a</span></code></pre>
+<p>But classes need to be used differently.</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">Prelude.Type</span><span class="fu">&gt;</span> <span class="dt">T</span><span class="ot"> ::</span> <span class="dt">Last</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>] a <span class="ot">=&gt;</span> <span class="dt">T</span> a
+<span class="dv">3</span></code></pre>
+<p>Thanks to Constraint kinds, we can add a Value instance for simple constraints.</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> (c a, <span class="dt">Value</span> a t) <span class="ot">=&gt;</span> <span class="dt">Value</span> (<span class="ot">c ::</span> k <span class="ot">-&gt;</span> <span class="dt">Constraint</span>) t
+  <span class="kw">where</span> value _ <span class="fu">=</span> value (<span class="dt">T</span><span class="ot">::</span><span class="dt">T</span> a)</code></pre>
+<p>Now we can use the <code>Last</code> class in the exact same way we used the <code>Last</code> type family.</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">Prelude.Type</span><span class="fu">&gt;</span> <span class="dt">T</span><span class="ot">::</span><span class="dt">T</span> (<span class="dt">Last</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>])
+<span class="dv">3</span></code></pre>
+<p>Code written using type families often looks nicer, so why use type classes and functional dependencies? Because we can not (yet?) partially apply type families. However type classes do not mind being partially applied. We can easily write higher order type classes such as <code>FoldR</code>.</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">class</span> <span class="dt">FoldR</span> (<span class="ot">f ::</span> a <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> <span class="dt">Constraint</span>)
+    (<span class="ot">nil ::</span> b) (<span class="ot">list ::</span> [a]) (<span class="ot">ret ::</span> b) <span class="fu">|</span> f nil list <span class="ot">-&gt;</span> ret
+<span class="kw">instance</span> <span class="dt">Id</span> nil ret <span class="ot">=&gt;</span> <span class="dt">FoldR</span> f nil <span class="ch">'[] ret</span>
+<span class="kw">instance</span> (<span class="dt">FoldR</span> f nil xs tail, f x tail ret)
+    <span class="ot">=&gt;</span> <span class="dt">FoldR</span> f nil (x <span class="ch">': xs) ret</span></code></pre>
+<p><code>FoldR</code> can be used to implement <code>Or</code>.</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Or</span> <span class="fu">=</span> <span class="dt">FoldR</span> (<span class="fu">||</span>) <span class="ch">'[]</span></code></pre>
+<p><code>Or</code> can be used to implement <code>Any</code>.</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Any</span> <span class="fu">=</span> (<span class="dt">Compose1</span> <span class="dt">Or</span>) <span class="ot">`Compose2`</span> <span class="dt">Partial1</span> <span class="dt">Map</span></code></pre>
+<p>Partial application of type classes does not work exactly the same way as in regular Haskell, which is why the <code>Compose</code> class (corresponding to (.)) has many variants. Each variant has a different arity. But it still works.</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">Prelude.Type</span><span class="fu">&gt;</span> <span class="dt">T</span><span class="ot">::</span><span class="dt">T</span> (<span class="dt">Any</span> ((<span class="fu">==</span>) <span class="dv">1</span>) <span class="ch">'[3,2,1])</span>
+<span class="dt">True</span></code></pre>
+<h2 id="if-and-case">If and Case</h2>
+<p>To make type-level programming easier, <code>Prelude.Type</code> also provides <code>If</code> and <code>Case</code> classes. For example, <code>Case</code> is used to implement <code>Ord</code>.</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">class</span> <span class="dt">Compare</span> (<span class="ot">a ::</span> k) (<span class="ot">b ::</span> k) (<span class="ot">o ::</span> <span class="dt">Ordering</span>) <span class="fu">|</span> a b <span class="ot">-&gt;</span> o
+
+<span class="kw">class</span> ((<span class="ot">a ::</span> k) <span class="fu">&lt;</span> (<span class="ot">b ::</span> k)) (<span class="ot">p ::</span> <span class="dt">Bool</span>) <span class="fu">|</span> a b <span class="ot">-&gt;</span> p
+<span class="kw">instance</span> (<span class="dt">Compare</span> a b o,
+          <span class="dt">Case</span> o [<span class="dt">LT</span> <span class="fu">--&gt;</span> <span class="dt">True</span> <span class="fu">~</span> p,
+                  <span class="dt">Otherwise</span> (<span class="dt">False</span> <span class="fu">~</span> p)])
+         <span class="ot">=&gt;</span> (a <span class="fu">&lt;</span> b) p</code></pre>
+<p>And If is used to implement <code>Enum</code> for <code>Integer</code>s.</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">If</span> (b <span class="fu">&lt;</span> a) (l <span class="fu">~</span> <span class="ch">'[])</span>
+            (((<span class="dt">I</span> <span class="dv">1</span>) <span class="fu">+</span> a) c, <span class="dt">EnumFromTo</span> c b k, l <span class="fu">~</span> (a <span class="ch">': k))</span>
+         <span class="ot">=&gt;</span> <span class="dt">EnumFromTo</span> (<span class="ot">a ::</span> <span class="dt">Integer</span>) b l</code></pre>
+<h2 id="extras">Extras</h2>
+<p><code>Prelude.Type</code> contains a port of most of the functions from the Prelude that operate on <code>Bool</code>, <code>Integer</code>, lists and functions.</p>
+<p>For fun, it also provides the <code>Main</code> type alias for writing executables entirely on the type level.</p>
+<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">{-# LANGUAGE DataKinds, FlexibleInstances, MultiParamTypeClasses,</span>
+<span class="co">             FlexibleContexts, UndecidableInstances, KindSignatures #-}</span>
+
+<span class="kw">module</span> <span class="dt">Main</span> (main) <span class="kw">where</span>
+
+<span class="kw">import </span><span class="dt">Prelude.Type</span>
+
+<span class="kw">instance</span> <span class="dt">Gcd</span> (<span class="dt">I</span> <span class="dv">12</span>) (<span class="dt">I</span> <span class="dv">10</span>) a
+        <span class="ot">=&gt;</span> <span class="dt">Main</span> a
+
+<span class="fu">$</span> ghc Main.hs
+<span class="fu">$</span> <span class="fu">./</span>Main.hs
+<span class="dv">2</span></code></pre>
+
+        </div>
+        <div id="footer">
+            Site proudly generated by
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+        </div>
+    </body>
+</html>
