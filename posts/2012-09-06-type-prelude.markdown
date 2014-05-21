@@ -13,7 +13,8 @@ is it to port?
 
 All the code from this article is available in the [type-prelude
 package on hackage](http://hackage.haskell.org/package/type-prelude).
-Integer
+
+## Integer
 
 The prelude has an Integer type that can represent any positive or
 negative integer. GHC has a new feature, data kind promotion, which

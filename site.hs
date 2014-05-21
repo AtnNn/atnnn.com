@@ -18,6 +18,7 @@ config = defaultConfiguration {
     | ".#" `isPrefixOf` name = True
     | "~" `isSuffixOf` name = True
     | ".swp" `isSuffixOf` name = True
+    | ".tmp" `isSuffixOf` name = True
     | otherwise = False
     where name = takeFileName path
 
