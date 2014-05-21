@@ -28,7 +28,8 @@
 </div>
 
 <p>The <a href="http://www.haskell.org/ghc/docs/7.6.1/html/users_guide/release-7-6-1.html">new release of GHC</a> has many new features. <a href="https://plus.google.com/102696032232347740796/posts/bEiZmixWJgB">Deferred type errors</a> are very useful but the other features are a lot more fun. It is now a lot easier to encode invariants, information and computation at the type level. How much of the prelude can be ported, and how difficult is it to port?</p>
-<p>All the code from this article is available in the <a href="http://hackage.haskell.org/package/type-prelude">type-prelude package on hackage</a>. Integer</p>
+<p>All the code from this article is available in the <a href="http://hackage.haskell.org/package/type-prelude">type-prelude package on hackage</a>.</p>
+<h2 id="integer">Integer</h2>
 <p>The prelude has an Integer type that can represent any positive or negative integer. GHC has a new feature, data kind promotion, which automatically promotes data types and constructors into data kinds and types when it is possible. It is not possible to promote this type because its implementation is hidden.</p>
 <p>GHC has a Nat kind which allows any natural number to be used as a type, but they cannot be used to replace Integer.</p>
 <p>The <code>Prelude.Type.Integer</code> module provides the <code>Integer</code> kind, implemented as an unbounded list of bits using twos-complement. The <code>I</code> class converts small <code>Nat</code>s into Integers.</p>
