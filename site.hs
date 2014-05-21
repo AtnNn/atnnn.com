@@ -7,6 +7,10 @@ import           Hakyll
 --------------------------------------------------------------------------------
 main :: IO ()
 main = hakyll $ do
+    match "github/*" $ do
+        route $ gsubRoute "static/" (const "")
+        compile copyFileCompiler
+
     match "images/*" $ do
         route   idRoute
         compile copyFileCompiler
