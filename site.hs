@@ -15,6 +15,7 @@ config = defaultConfiguration {
   } where
   ignoreFile path
     | "#" `isPrefixOf` name = True
+    | ".#" `isPrefixOf` name = True
     | "~" `isSuffixOf` name = True
     | ".swp" `isSuffixOf` name = True
     | otherwise = False

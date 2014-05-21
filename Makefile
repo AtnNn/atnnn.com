@@ -19,6 +19,10 @@ publish: _site
 rebuild: build_mode = rebuild
 rebuild: _site
 
+.PHONY: watch
+watch:
+	cabal run watch
+
 _site: $(site) $(wildcard about.rst css/* github/* index.html posts/* contact.markdown images/* templates/*)
 	cabal run $(build_mode)
 	if [[ -e _site/.git ]]; then $(sitegit) checkout --detach --quiet; else $(sitegit) init; fi
