@@ -2,13 +2,28 @@
 {-# LANGUAGE OverloadedStrings #-}
 import           Data.Monoid (mappend)
 import           Hakyll
+import           Data.List
+import           System.FilePath.Posix
 
 
 --------------------------------------------------------------------------------
+
+config :: Configuration
+config = defaultConfiguration {
+    inMemoryCache = True,
+    ignoreFile = ignoreFile
+  } where
+  ignoreFile path
+    | "#" `isPrefixOf` name = True
+    | "~" `isSuffixOf` name = True
+    | ".swp" `isSuffixOf` name = True
+    | otherwise = False
+    where name = takeFileName path
+
 main :: IO ()
-main = hakyll $ do
+main = hakyllWith config $ do
     match "github/*" $ do
-        route $ gsubRoute "static/" (const "")
+        route $ gsubRoute "github/" (const "")
         compile copyFileCompiler
 
     match "images/*" $ do
