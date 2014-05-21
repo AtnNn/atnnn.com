@@ -12,7 +12,7 @@ diff:
 .PHONY: commit
 commit: _site
 	test -z "`git status --porcelain`" || ( git status; false)
-	$(sitegit) add .
+	$(sitegit) add --all .
 	$(sitegit) commit -am "`date` `cd .. && git log -1 HEAD --pretty=format:%H`"
 	git fetch _site gh-pages:gh-pages
 
@@ -33,7 +33,6 @@ _site: $(site) $(wildcard about.rst css/* github/* index.html posts/* contact.ma
 	$(sitegit) fetch .. +gh-pages:gh-pages
 	$(sitegit) symbolic-ref HEAD refs/heads/gh-pages
 	$(sitegit) reset
-	$(sitegit) add .
 
 $(site): site.hs
 	cabal build
