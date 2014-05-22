@@ -57,11 +57,11 @@ implemented very easily for this `Integer` kind. For example:
 type family Negate (a :: k) :: k
 type instance Negate a = Complement a + I 1
 
-type family   (a :: k) * (b :: k) :: k
-type instance Zeros    * j = Zeros
-type instance Ones     * j = Negate j
+type family (a :: k) * (b :: k) :: k
+type instance Zeros * j = Zeros
+type instance Ones * j = Negate j
 type instance (Zero i) * j = IntegerCons False (i * j)
-type instance (One i)  * j = j + IntegerCons False (i * j)
+type instance (One i) * j = j + IntegerCons False (i * j)
 ```
 
 ## Proxy

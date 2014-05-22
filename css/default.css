@@ -63,8 +63,11 @@ div.info {
 }
 
 /** Syntax hihglighting **/
-pre { background-color: #FDF6E3;
+pre { background-color: #f7faff;
+      border: 1px solid #eef5ff;
+      padding: 5px 10px;
       font-family: dejavu-mono, monospace }
+code.haskell { font-family: dejavu-sans, sans-serif }
 .sourceCode .kw { color: #268BD2; }
 .sourceCode .dt { color: #268BD2; }
 .sourceCode .dv, .sourceCode .bn, .sourceCode .fl { color: #D33682; }
