@@ -37,6 +37,8 @@ config = defaultConfiguration {
     | otherwise = False
     where name = takeFileName path
 
+noExtRoute = customRoute $ (++"/index.html") . dropExtension . toFilePath
+
 main :: IO ()
 main = hakyllWith config $ do
     match "github/*" $ do
@@ -51,22 +53,22 @@ main = hakyllWith config $ do
         route   idRoute
         compile compressCssCompiler
 
-    match (fromList ["about.rst", "contact.markdown"]) $ do
-        route   $ setExtension "html"
+    match "about.markdown" $ do
+        route   $ noExtRoute
         compile $ pandocCompiler
             >>= loadAndApplyTemplate "templates/default.html" defaultContext
             >>= relativizeUrls
 
     match "posts/*" $ do
-        route $ customRoute $ \ident ->
-            "p" ++ dropExtension (snd (break (=='/') $ toFilePath ident)) ++ "/index.html"
+        route $ composeRoutes noExtRoute $ customRoute $ \ident ->
+            "p" ++ snd (break (=='/') $ toFilePath ident)
         compile $ pandocCompiler
             >>= loadAndApplyTemplate "templates/post.html"    postCtx
             >>= loadAndApplyTemplate "templates/default.html" postCtx
             >>= relativizeUrls
 
     create ["archive.html"] $ do
-        route idRoute
+        route noExtRoute
         compile $ do
             posts <- recentFirst =<< loadAll "posts/*"
             let archiveCtx =
