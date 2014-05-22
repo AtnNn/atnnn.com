@@ -66,7 +66,7 @@ type instance (One i) * j = j + IntegerCons False (i * j)
 
 ## Proxy
 
-Constructors, when promoted, becomes types. But these types do not
+Constructors, when promoted, become types. But these types do not
 have any values. The `Prelude.Type.Value` provides the `T` type (known
 elsewhere as `Proxy`).
 
@@ -229,7 +229,7 @@ For fun, it also provides the `Main` type alias for writing executables entirely
 
 ```haskell
 {-# LANGUAGE DataKinds, FlexibleInstances, MultiParamTypeClasses,
-             FlexibleContexts, UndecidableInstances, KindSignatures #-}
+    FlexibleContexts, UndecidableInstances, KindSignatures #-}
 
 module Main (main) where
 
@@ -237,7 +237,9 @@ import Prelude.Type
 
 instance Gcd (I 12) (I 10) a
         => Main a
+```
 
+```bash
 $ ghc Main.hs
 $ ./Main.hs
 2
