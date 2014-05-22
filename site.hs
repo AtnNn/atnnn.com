@@ -43,7 +43,7 @@ main = hakyllWith config $ do
         route $ gsubRoute "github/" (const "")
         compile copyFileCompiler
 
-    match "images/*" $ do
+    match ("images/*" .||. "font/*") $ do
         route   idRoute
         compile copyFileCompiler
 

@@ -1,8 +1,11 @@
+@import url("../font/font.css");
+
 body {
     color: black;
     font-size: 16px;
     margin: 0px auto 0px auto;
     width: 600px;
+    font-family: dejavu-sans, sans-serif;
 }
 
 div#header {
@@ -60,7 +63,8 @@ div.info {
 }
 
 /** Syntax hihglighting **/
-pre { background-color: #FDF6E3 }
+pre { background-color: #FDF6E3;
+      font-family: dejavu-mono, monospace }
 .sourceCode .kw { color: #268BD2; }
 .sourceCode .dt { color: #268BD2; }
 .sourceCode .dv, .sourceCode .bn, .sourceCode .fl { color: #D33682; }
