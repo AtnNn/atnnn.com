@@ -1,7 +1,7 @@
 ---
 title: Barnaby
 date: 2011-02-17
-tag: fiction
+category: fiction
 ---
 
 Barnaby loves growing roses.

@@ -1,6 +1,7 @@
 ---
 title: Writing Haskell Functions With Many Nameless Parameters
 date: 2011-10-03
+category: code
 ---
 
 Although it could be considered bad style, it is often useful to have
