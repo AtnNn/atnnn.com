@@ -1,0 +1,189 @@
+@font-face {
+  font-family: dejavu-sans;
+  src: url('DejaVuSans-BoldOblique.eot');
+  src: url('DejaVuSans-BoldOblique.eot?#iefix') format('embedded-opentype'),
+       url('DejaVuSans-BoldOblique.woff') format('woff'),
+       url('DejaVuSans-BoldOblique.ttf') format('truetype');
+  font-weight: bold;
+  font-style: oblique;
+}
+@font-face {
+  font-family: dejavu-sans;
+  src: url('DejaVuSans-Bold.eot');
+  src: url('DejaVuSans-Bold.eot?#iefix') format('embedded-opentype'),
+       url('DejaVuSans-Bold.woff') format('woff'),
+       url('DejaVuSans-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: dejavu-sans;
+  src: url('DejaVuSansCondensed-BoldOblique.eot');
+  src: url('DejaVuSansCondensed-BoldOblique.eot?#iefix') format('embedded-opentype'),
+       url('DejaVuSansCondensed-BoldOblique.woff') format('woff'),
+       url('DejaVuSansCondensed-BoldOblique.ttf') format('truetype');
+  font-weight: bold;
+  font-style: oblique;
+}
+@font-face {
+  font-family: dejavu-sans;
+  src: url('DejaVuSansCondensed-Bold.eot');
+  src: url('DejaVuSansCondensed-Bold.eot?#iefix') format('embedded-opentype'),
+       url('DejaVuSansCondensed-Bold.woff') format('woff'),
+       url('DejaVuSansCondensed-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: dejavu-sans;
+  src: url('DejaVuSansCondensed-Oblique.eot');
+  src: url('DejaVuSansCondensed-Oblique.eot?#iefix') format('embedded-opentype'),
+       url('DejaVuSansCondensed-Oblique.woff') format('woff'),
+       url('DejaVuSansCondensed-Oblique.ttf') format('truetype');
+  font-weight: normal;
+  font-style: oblique;
+}
+@font-face {
+  font-family: dejavu-sans;
+  src: url('DejaVuSansCondensed.eot');
+  src: url('DejaVuSansCondensed.eot?#iefix') format('embedded-opentype'),
+       url('DejaVuSansCondensed.woff') format('woff'),
+       url('DejaVuSansCondensed.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: dejavu-sans;
+  src: url('DejaVuSans-ExtraLight.eot');
+  src: url('DejaVuSans-ExtraLight.eot?#iefix') format('embedded-opentype'),
+       url('DejaVuSans-ExtraLight.woff') format('woff'),
+       url('DejaVuSans-ExtraLight.ttf') format('truetype');
+  font-weight: 100;
+  font-style: normal;
+}
+@font-face {
+  font-family: dejavu-mono;
+  src: url('DejaVuSansMono-BoldOblique.eot');
+  src: url('DejaVuSansMono-BoldOblique.eot?#iefix') format('embedded-opentype'),
+       url('DejaVuSansMono-BoldOblique.woff') format('woff'),
+       url('DejaVuSansMono-BoldOblique.ttf') format('truetype');
+  font-weight: bold;
+  font-style: oblique;
+}
+@font-face {
+  font-family: dejavu-mono;
+  src: url('DejaVuSansMono-Bold.eot');
+  src: url('DejaVuSansMono-Bold.eot?#iefix') format('embedded-opentype'),
+       url('DejaVuSansMono-Bold.woff') format('woff'),
+       url('DejaVuSansMono-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: dejavu-mono;
+  src: url('DejaVuSansMono-Oblique.eot');
+  src: url('DejaVuSansMono-Oblique.eot?#iefix') format('embedded-opentype'),
+       url('DejaVuSansMono-Oblique.woff') format('woff'),
+       url('DejaVuSansMono-Oblique.ttf') format('truetype');
+  font-weight: normal;
+  font-style: oblique;
+}
+@font-face {
+  font-family: dejavu-mono;
+  src: url('DejaVuSansMono.eot');
+  src: url('DejaVuSansMono.eot?#iefix') format('embedded-opentype'),
+       url('DejaVuSansMono.woff') format('woff'),
+       url('DejaVuSansMono.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: dejavu-sans;
+  src: url('DejaVuSans-Oblique.eot');
+  src: url('DejaVuSans-Oblique.eot?#iefix') format('embedded-opentype'),
+       url('DejaVuSans-Oblique.woff') format('woff'),
+       url('DejaVuSans-Oblique.ttf') format('truetype');
+  font-weight: normal;
+  font-style: oblique;
+}
+@font-face {
+  font-family: dejavu-sans;
+  src: url('DejaVuSans.eot');
+  src: url('DejaVuSans.eot?#iefix') format('embedded-opentype'),
+       url('DejaVuSans.woff') format('woff'),
+       url('DejaVuSans.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: dejavu-serif;
+  src: url('DejaVuSerif-BoldItalic.eot');
+  src: url('DejaVuSerif-BoldItalic.eot?#iefix') format('embedded-opentype'),
+       url('DejaVuSerif-BoldItalic.woff') format('woff'),
+       url('DejaVuSerif-BoldItalic.ttf') format('truetype');
+  font-weight: bold;
+  font-style: italic;
+}
+@font-face {
+  font-family: dejavu-serif;
+  src: url('DejaVuSerif-Bold.eot');
+  src: url('DejaVuSerif-Bold.eot?#iefix') format('embedded-opentype'),
+       url('DejaVuSerif-Bold.woff') format('woff'),
+       url('DejaVuSerif-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: dejavu-serif;
+  src: url('DejaVuSerifCondensed-BoldItalic.eot');
+  src: url('DejaVuSerifCondensed-BoldItalic.eot?#iefix') format('embedded-opentype'),
+       url('DejaVuSerifCondensed-BoldItalic.woff') format('woff'),
+       url('DejaVuSerifCondensed-BoldItalic.ttf') format('truetype');
+  font-weight: bold;
+  font-style: italic;
+}
+@font-face {
+  font-family: dejavu-serif;
+  src: url('DejaVuSerifCondensed-Bold.eot');
+  src: url('DejaVuSerifCondensed-Bold.eot?#iefix') format('embedded-opentype'),
+       url('DejaVuSerifCondensed-Bold.woff') format('woff'),
+       url('DejaVuSerifCondensed-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: dejavu-serif;
+  src: url('DejaVuSerifCondensed-Italic.eot');
+  src: url('DejaVuSerifCondensed-Italic.eot?#iefix') format('embedded-opentype'),
+       url('DejaVuSerifCondensed-Italic.woff') format('woff'),
+       url('DejaVuSerifCondensed-Italic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}
+@font-face {
+  font-family: dejavu-serif;
+  src: url('DejaVuSerifCondensed.eot');
+  src: url('DejaVuSerifCondensed.eot?#iefix') format('embedded-opentype'),
+       url('DejaVuSerifCondensed.woff') format('woff'),
+       url('DejaVuSerifCondensed.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: dejavu-serif;
+  src: url('DejaVuSerif-Italic.eot');
+  src: url('DejaVuSerif-Italic.eot?#iefix') format('embedded-opentype'),
+       url('DejaVuSerif-Italic.woff') format('woff'),
+       url('DejaVuSerif-Italic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}
+@font-face {
+  font-family: dejavu-serif;
+  src: url('DejaVuSerif.eot');
+  src: url('DejaVuSerif.eot?#iefix') format('embedded-opentype'),
+       url('DejaVuSerif.woff') format('woff'),
+       url('DejaVuSerif.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
