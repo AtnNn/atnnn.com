@@ -1,5 +1,6 @@
 ---
 title: #define true false
+date: 2011-03-16
 ---
 
 What is the output of the following C++ program?

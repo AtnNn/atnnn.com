@@ -1,5 +1,6 @@
 ---
 title: type-prelude and GHC 7.6.1
+date: 2012-09-06
 ---
 
 The [new release of

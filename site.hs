@@ -1,11 +1,26 @@
 --------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
-import           Data.Monoid (mappend)
+import           Data.Monoid
 import           Hakyll
 import           Data.List
-import           System.FilePath.Posix
+import           System.FilePath
 
+{- TODO
 
+- no .html links, no links to index.html
+- tags aka categories (buildTags)
+- better layout
+- link to other blogs
+- link to soundcloud?
+- CV?
+- links to projects on github
+- retrieve articles and images from old blog.atnnn.com
+- minifj js (hjsmin, minifyJSCompiler)
+- minify html
+- no home page, just list posts + pages
+- contact: email, twitter, etc... ?
+
+-}
 --------------------------------------------------------------------------------
 
 config :: Configuration
@@ -43,7 +58,8 @@ main = hakyllWith config $ do
             >>= relativizeUrls
 
     match "posts/*" $ do
-        route $ setExtension "html"
+        route $ customRoute $ \ident ->
+            "p" ++ dropExtension (snd (break (=='/') $ toFilePath ident)) ++ "/index.html"
         compile $ pandocCompiler
             >>= loadAndApplyTemplate "templates/post.html"    postCtx
             >>= loadAndApplyTemplate "templates/default.html" postCtx
@@ -84,5 +100,10 @@ main = hakyllWith config $ do
 --------------------------------------------------------------------------------
 postCtx :: Context String
 postCtx =
-    dateField "date" "%B %e, %Y" `mappend`
-    defaultContext
+    dateField "date" "%B %e, %Y"
+    <> field "url" (\item -> do
+                       Just route <- getRoute $ itemIdentifier item
+                       return $ if "/index.html" `isSuffixOf` route
+                                then takeDirectory route
+                                else route)
+    <> defaultContext
