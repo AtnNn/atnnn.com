@@ -14,11 +14,10 @@ import           System.FilePath
 - link to soundcloud?
 - CV?
 - links to projects on github
-- retrieve articles and images from old blog.atnnn.com
-- minifj js (hjsmin, minifyJSCompiler)
-- minify html
+- minify js (hjsmin, minifyJSCompiler)
 - no home page, just list posts + pages
-- contact: email, twitter, etc... ?
+- updated date for articles
+- next, previous and related articles links
 
 -}
 --------------------------------------------------------------------------------
@@ -45,7 +44,7 @@ main = hakyllWith config $ do
         route $ gsubRoute "github/" (const "")
         compile copyFileCompiler
 
-    match ("images/*" .||. "font/*") $ do
+    match ("images/**" .||. "font/*") $ do
         route   idRoute
         compile copyFileCompiler
 
@@ -88,7 +87,6 @@ main = hakyllWith config $ do
             posts <- recentFirst =<< loadAll "posts/*"
             let indexCtx =
                     listField "posts" postCtx (return posts) `mappend`
-                    constField "title" "Home"                `mappend`
                     defaultContext
 
             getResourceBody
@@ -106,6 +104,6 @@ postCtx =
     <> field "url" (\item -> do
                        Just route <- getRoute $ itemIdentifier item
                        return $ if "/index.html" `isSuffixOf` route
-                                then takeDirectory route
+                                then "/" ++ takeDirectory route
                                 else route)
     <> defaultContext

@@ -24,7 +24,7 @@ rebuild: build_mode = rebuild
 rebuild: _site
 
 .PHONY: watch
-watch:
+watch: _site
 	cabal run watch
 
 _site: $(site) $(wildcard about.rst css/* github/* index.html posts/* contact.markdown images/* templates/*)
