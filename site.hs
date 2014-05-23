@@ -18,6 +18,7 @@ import           System.FilePath
 - updated date for articles
 - next, previous and related articles links
 - add photo of me
+- add 404 page
 
 -}
 --------------------------------------------------------------------------------
