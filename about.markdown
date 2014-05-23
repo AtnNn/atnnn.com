@@ -2,9 +2,9 @@
 title: About
 ---
 
-I am, among other things, a software developer, an amateur pennywhistle
-player and an avid reader. I live in Mountain View and work at
-[RethinkDB](http://rethinkdb.com/).
+I am, among other things, a software developer, an amateur
+pennywhistle player and an avid reader. I live in Mountain View,
+California and work at [RethinkDB](http://rethinkdb.com/).
 
 ## Contact Me
 

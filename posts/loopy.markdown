@@ -1,6 +1,7 @@
 ---
 title: Loopy
 date: 2010-01-31
+category: games
 ---
 
 	

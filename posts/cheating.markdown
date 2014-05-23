@@ -1,6 +1,7 @@
 ---
 title: Cheating
 date: 2010-11-21
+category: humor
 ---
 
 I haven’t posted anything here in a long time, so I thought I might share a small log from freenode.

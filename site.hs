@@ -14,10 +14,10 @@ import           System.FilePath
 - link to soundcloud?
 - CV?
 - links to projects on github
-- minify js (hjsmin, minifyJSCompiler)
 - no home page, just list posts + pages
 - updated date for articles
 - next, previous and related articles links
+- add photo of me
 
 -}
 --------------------------------------------------------------------------------

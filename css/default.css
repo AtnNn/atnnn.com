@@ -20,6 +20,7 @@ div#header {
     background-color: #ffffff;
     border-bottom: 2px solid black;
     padding: 12px 20px 12px 20px;
+    margin-top: 10px
 }
 
 div#logo a {
@@ -110,3 +111,10 @@ pre, p, ul { margin: 20px 0px;
 
 ul { list-style: square inside; }
 li {  }
+
+img { max-width: 600px }
+
+pre {
+    overflow: auto;
+    font-size: 0.8em
+}
