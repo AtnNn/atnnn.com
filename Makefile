@@ -29,7 +29,12 @@ watch: _site
 
 _site: $(site) $(wildcard about.rst css/* github/* index.html posts/* contact.markdown images/* templates/*)
 	cabal run $(build_mode)
-	if [[ -e _site/.git ]]; then $(sitegit) checkout --detach --quiet; else $(sitegit) init; fi
+	if [[ -e _site/.git ]]; then \
+	  $(sitegit) checkout --detach --quiet; \
+	else \
+	  $(sitegit) init; \
+	  echo "../../../.git/objects" > .git/objects/info/alternates; \
+	fi
 	$(sitegit) fetch .. +gh-pages:gh-pages
 	$(sitegit) symbolic-ref HEAD refs/heads/gh-pages
 	$(sitegit) reset
