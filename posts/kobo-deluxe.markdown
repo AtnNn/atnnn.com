@@ -1,7 +1,7 @@
 ---
 title: Kobo Deluxe
-category: gamse, video
-date: 2014-05-23
+category: games, video
+date: 2013-09-06
 ---
 
 I have always been a big fan of [Kobo
