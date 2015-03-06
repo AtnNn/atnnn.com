@@ -110,7 +110,8 @@ pre, p, ul { margin: 20px 0px;
          line-height: 1.3em }
 
 ul { list-style: square inside; }
-li {  }
+li { margin: 10px 0; }
+li > p { display: inline; }
 
 img { max-width: 600px }
 
@@ -118,3 +119,5 @@ pre {
     overflow: auto;
     font-size: 0.8em
 }
+
+strong { font-weight: bold; }
