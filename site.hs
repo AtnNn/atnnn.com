@@ -5,6 +5,7 @@ import Hakyll
 import Data.List
 import System.FilePath
 import Text.Parsec
+import Text.Parsec.Token
 import Data.Either
 import Control.Applicative
 
@@ -62,14 +63,14 @@ main = hakyllWith config $ do
     match "posts/*" $ do
         route $ composeRoutes noExtRoute $ customRoute $ \ident ->
             "p" ++ snd (break (=='/') $ toFilePath ident)
-        let postLayout post =
+        let postLayout =
               pandocCompiler
-              >>= loadAndApplyTemplate "templates/post.html" postCtx post
+              >>= loadAndApplyTemplate "templates/post.html" postCtx
               >>= loadAndApplyTemplate "templates/default.html" postCtx
               >>= relativizeUrls
         compile $ do
-          categories <- parseCategories <$> getMetaDataField "category"
-          saveSnapshot "category" =<< makeItem categories
+          -- categories <- parseCategories <$> getMetadataField' "category" undefined
+          -- saveSnapshot "category" =<< makeItem categories
           postLayout
           
           
@@ -102,8 +103,8 @@ postCtx =
                                 else route)
     <> defaultContext
 
-parseCategories :: String -> [String]
-parseCategories = 
-  either (const ["misc"]) id $ flip parse "category" $
-  many1 (spaces *> manyTill anyChar space <* space) `sepBy` (symbol ",")
+-- parseCategories :: String -> [String]
+-- parseCategories = either (const ["misc"]) id . parse cats "category"
+--   where
+--    cats = many1 (spaces *> manyTill anyChar space <* space) `sepBy` (char ',')
 
