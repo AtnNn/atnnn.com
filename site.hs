@@ -1,20 +1,20 @@
 --------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
-import           Data.Monoid
-import           Hakyll
-import           Data.List
-import           System.FilePath
+import Data.Monoid
+import Hakyll
+import Data.List
+import System.FilePath
+import Text.Parsec
+import Data.Either
+import Control.Applicative
 
 {- TODO
 
-- no .html links, no links to index.html
+- favicon
 - tags aka categories (buildTags)
-- better layout
-- link to other blogs
-- link to soundcloud?
-- CV?
+- irish recordings
 - links to projects on github
-- no home page, just list posts + pages
+- better home page
 - updated date for articles
 - next, previous and related articles links
 - add photo of me
@@ -41,8 +41,8 @@ noExtRoute = customRoute $ (++"/index.html") . dropExtension . toFilePath
 
 main :: IO ()
 main = hakyllWith config $ do
-    match "github/*" $ do
-        route $ gsubRoute "github/" (const "")
+    match "root/*" $ do
+        route $ gsubRoute "root/" (const "")
         compile copyFileCompiler
 
     match ("images/**" .||. "font/*") $ do
@@ -62,15 +62,23 @@ main = hakyllWith config $ do
     match "posts/*" $ do
         route $ composeRoutes noExtRoute $ customRoute $ \ident ->
             "p" ++ snd (break (=='/') $ toFilePath ident)
-        compile $ pandocCompiler
-            >>= loadAndApplyTemplate "templates/post.html"    postCtx
-            >>= loadAndApplyTemplate "templates/default.html" postCtx
-            >>= relativizeUrls
+        let postLayout post =
+              pandocCompiler
+              >>= loadAndApplyTemplate "templates/post.html" postCtx post
+              >>= loadAndApplyTemplate "templates/default.html" postCtx
+              >>= relativizeUrls
+        compile $ do
+          categories <- parseCategories <$> getMetaDataField "category"
+          saveSnapshot "category" =<< makeItem categories
+          postLayout
+          
+          
 
     match "index.html" $ do
         route idRoute
         compile $ do
             posts <- recentFirst =<< loadAll "posts/*"
+            
             let indexCtx =
                     listField "posts" postCtx (return posts) `mappend`
                     defaultContext
@@ -93,3 +101,9 @@ postCtx =
                                 then "/" ++ takeDirectory route
                                 else route)
     <> defaultContext
+
+parseCategories :: String -> [String]
+parseCategories = 
+  either (const ["misc"]) id $ flip parse "category" $
+  many1 (spaces *> manyTill anyChar space <* space) `sepBy` (symbol ",")
+
