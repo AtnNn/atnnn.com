@@ -37,7 +37,7 @@ div#header #navigation {
 
 div#header #navigation a {
     color: black;
-    font-size: 18px;
+    font-size: 12px;
     font-weight: bold;
     margin-left: 12px;
     text-decoration: none;
@@ -109,9 +109,10 @@ a:hover { text-decoration: underline }
 pre, p, ul { margin: 20px 0px;
          line-height: 1.3em }
 
-ul { list-style: square inside; }
+ul { list-style: square outside;
+     margin-left: 10px }
 li { margin: 10px 0; }
-li > p { display: inline; }
+li > p {  }
 
 img { max-width: 600px }
 
