@@ -46,7 +46,7 @@ main = hakyllWith config $ do
         route $ gsubRoute "root/" (const "")
         compile copyFileCompiler
 
-    match ("images/**" .||. "font/*") $ do
+    match ("files/**" .||. "images/**" .||. "font/*") $ do
         route   idRoute
         compile copyFileCompiler
 
