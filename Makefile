@@ -1,3 +1,5 @@
+SHELL := /bin/bash
+
 site := dist/build/site/site
 sitegit := cd _site && git
 build_mode := build

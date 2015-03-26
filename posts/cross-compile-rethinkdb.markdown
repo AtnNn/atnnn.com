@@ -82,15 +82,14 @@ arm-linux-gnueabihf
 We can now fetch and build RethinkDB for the Raspberry Pi.
 
 ```bash
-git clone -b atnnn/cross https://github.com/rethinkdb/rethinkdb
+git clone -b v2.0.x https://github.com/rethinkdb/rethinkdb
 cd rethinkdb
 rm -rf external/v8*
 ./configure --allow-fetch --with-system-malloc
 make -j `nproc`
 ```
 
-* Cross-compiling now requires the patches from the `atnnn/cross`
-  branch, but these will be merged into `HEAD` for RethinkDB 2.0
+* Cross-compiling has been tested in the v2.0.x branch.
 
 * The bundled version of v8 does not include a copy of the ICU
   library, which it requires for cross-compiling, so it has to be
