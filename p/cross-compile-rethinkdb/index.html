@@ -63,13 +63,13 @@ $ <span class="ot">$CXX</span> <span class="kw">-dumpmachine</span>
 <span class="kw">arm-linux-gnueabihf</span></code></pre>
 <h2 id="the-build">The build</h2>
 <p>We can now fetch and build RethinkDB for the Raspberry Pi.</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> clone -b atnnn/cross https://github.com/rethinkdb/rethinkdb
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> clone -b v2.0.x https://github.com/rethinkdb/rethinkdb
 <span class="kw">cd</span> rethinkdb
 <span class="kw">rm</span> -rf external/v8*
 <span class="kw">./configure</span> --allow-fetch --with-system-malloc
 <span class="kw">make</span> -j <span class="kw">`nproc`</span></code></pre>
 <ul>
-<li><p>Cross-compiling now requires the patches from the <code>atnnn/cross</code> branch, but these will be merged into <code>HEAD</code> for RethinkDB 2.0</p></li>
+<li><p>Cross-compiling has been tested in the v2.0.x branch.</p></li>
 <li><p>The bundled version of v8 does not include a copy of the ICU library, which it requires for cross-compiling, so it has to be removed</p></li>
 <li><p>The <code>--allow-fetch</code> flag tells RethinkDB to fetch missing libraries. The RethinkDB build system includes a tiny package manager that can download and cross-compile all the required dependencies.</p></li>
 <li><p>The <code>--with-system-malloc</code> flag disables the use of <code>jemalloc</code></p></li>
