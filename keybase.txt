@@ -1,0 +1,67 @@
+==================================================================
+https://keybase.io/atnnn
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of http://www.atnnn.com
+  * I am atnnn (https://keybase.io/atnnn) on keybase.
+  * I have a public key with fingerprint 9AD1 0362 2137 9ED4 723C  24C1 BA1F 6F51 93F6 2C3B
+
+To do so, I am signing this object:
+
+{
+    "body": {
+        "client": {
+            "name": "keybase.io node.js client",
+            "version": "0.8.18"
+        },
+        "key": {
+            "eldest_kid": "0111e685112cd46e8133027fe15fbe77414b6dcab5e31f8b53c9a4523a26b5fb41030a",
+            "fingerprint": "9ad1036221379ed4723c24c1ba1f6f5193f62c3b",
+            "host": "keybase.io",
+            "key_id": "ba1f6f5193f62c3b",
+            "kid": "0111e685112cd46e8133027fe15fbe77414b6dcab5e31f8b53c9a4523a26b5fb41030a",
+            "uid": "0c1255cee20b1c7d1e8e1229fc305119",
+            "username": "atnnn"
+        },
+        "service": {
+            "hostname": "www.atnnn.com",
+            "protocol": "http:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1440806992,
+    "expire_in": 157680000,
+    "prev": "6fc33c02a36e3bb4d8022cde960b539478ad561c0823b624fa1cc45917e8b914",
+    "seqno": 6,
+    "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: GnuPG v2
+
+owGtkr9rFEEUx9f4gygoRrBTE6ewOpZ5M7Ozu2crEiSNqBARPebH22RNsnvubu48
+kiDYaKEgiASEYCEKVhZ24l+glaWd2KWJCCpWxpnzFISUbjXs+7zv+77vzIODu4Px
+ideT5fmH31und73b1MGljz8urhBd2gFprxCzmGPR+FOhlpC0yQIOtKoxzMuporQY
+Xq+nRkyL9LCq87JwFA2TEBKy1vK878ZFi3XTWcitrwIAyiQCYMYKiQlwTlmcIUSZ
+xjgWILS0RukIOWSJjrhJlYgYV0xqhwignCo3MMuLOay6Ve4tklRZV5CMAY9TtCJm
+3DBhQCvIZBZByjPJDNeucb6sm3+WIUOnnaG9Hfj/7Hv5t5wBFkUGkVENJraACQJj
+aWY4dTNSD9ZYjYJXTVEUPlH3q5cb9Kn6NUblfr8fDpHQlEuus1uVTWnKRVeab5pu
+23c2g+4QRd0ZiXR0XlgX4t/Le+RuDxxqmtzLghA0oTJNWYvgzW5eYSf3RBTLhLrP
+z8Ge05TONDeUKS6Ray1sQpkLCVNJXQypiBNlIwmGJoxryUSmwBgRpRBjolMQxO91
+oyhJWzqfas5J1vlcoZrlCsna3Wt7gonxYN/eMf86gwP7D/95sifOBtuzxzYmP8Th
+t1OHnly4NzZ9Z6P/ad0uP351ZfXZuZfvvx4Ptme+bEafj6wf3XpD70/Pzlx98fPp
+mcurb+Pb8fPZk/1bW78A
+=clDu
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/atnnn
+
+==================================================================
