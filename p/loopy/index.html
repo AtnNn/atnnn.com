@@ -25,7 +25,8 @@
 
 <p>Also called Slither Link or Loop The Loop, Loopy is one of the many types of puzzles that came out of Japan. It is part of <a href="http://www.chiark.greenend.org.uk/~sgtatham/puzzles/">Simon Tatham’s Puzzle Collection</a>, and can be played online on <a href="http://www.chiark.greenend.org.uk/~sgtatham/puzzles/java/loopy.html">his site</a>, at <a href="http://www.nikoli.com/en/puzzles/slitherlink/">Nikoli</a> and on <a href="http://puzzle-loop.com/">puzzle-loop.com</a>.</p>
 <div class="figure">
-<img src="../../images/loopy/loopy_trim.gif" />
+<img src="../../images/loopy/loopy_trim.gif" alt />
+
 </div>
 <h2 id="rules">Rules</h2>
 <p>The goal of the game is to draw a single loop that never crosses itself, with a simple restriction: squares containing a number must have exactly that many sides that are part of the loop.</p>
@@ -40,30 +41,36 @@
 <h2 id="corner-patterns">Corner Patterns</h2>
 <p>Corner patterns usually appear in the corners, but some of them also apply when the numbered square has a corner in common with a 0. The patterns for a 1 and a 3 are easy, but it is a little less obvious for 2.</p>
 <div class="figure">
-<img src="../../images/loopy/corners-1.png" />
+<img src="../../images/loopy/corners-1.png" alt />
+
 </div>
 <p>In Tatham’s version and in other versions with a unique solution, when a 2 is completely alone in a corner, 6 segments can be filled in.</p>
 <div class="figure">
-<img src="../../images/loopy/corners-2.png" />
+<img src="../../images/loopy/corners-2.png" alt />
+
 </div>
 <h2 id="side-pattern">Side Pattern</h2>
 <p>When a 3 and a 1 are together on the side, another simple deduction can be made.</p>
 <div class="figure">
-<img src="../../images/loopy/side-1.png" />
+<img src="../../images/loopy/side-1.png" alt />
+
 </div>
 <h2 id="patterns-with-3">Patterns with 3</h2>
 <p>The 3 square is very special because all but one of its sides are in the loop. It is often easy to predict two of it’s sides.</p>
 <p>A dot with two diagonal 1s and a 3 will always be part of the loop. The 1s always shoot inward.</p>
 <div class="figure">
-<img src="../../images/loopy/3-1-1.png" />
+<img src="../../images/loopy/3-1-1.png" alt />
+
 </div>
 <p>When 3s touch diagonally, they shoot at each other and fly away from each other.</p>
 <div class="figure">
-<img src="../../images/loopy/3-3.png" />
+<img src="../../images/loopy/3-3.png" alt />
+
 </div>
 <p>When they share a side, they make a parallel formation. The two segments that continue the middle segment are never part of the loop.</p>
 <div class="figure">
-<img src="../../images/loopy/3-3-3.png" />
+<img src="../../images/loopy/3-3-3.png" alt />
+
 </div>
 <h2 id="a-little-vocabulary">A little vocabulary</h2>
 <p>I invented my own vocabulary to make discussing loopy easier.</p>
@@ -75,20 +82,24 @@
 <p>The interesting thing with 2s is that shooting and flying propagates along diagonal 2s.</p>
 <p>For example, two 3s connected by 2s can still shoot at each other and fly away.</p>
 <div class="figure">
-<img src="../../images/loopy/3-2-2-3.png" />
+<img src="../../images/loopy/3-2-2-3.png" alt />
+
 </div>
 <p>A 2 in a corner or diagonally across from a 0 is a flying 2. It flies towards the corner or away from it, and it shoots sideways.</p>
 <p>It is impossible to fly into a 3, so flying 2s always fly away from 3s that are directly in their path.</p>
 <div class="figure">
-<img src="../../images/loopy/2-3-Fly.png" />
+<img src="../../images/loopy/2-3-Fly.png" alt />
+
 </div>
 <p>Flying 2s shoot sideways at 3s that are on the side.</p>
 <div class="figure">
-<img src="../../images/loopy/2-3-Shoot.png" />
+<img src="../../images/loopy/2-3-Shoot.png" alt />
+
 </div>
 <p>A 3 that has a side in common with a flying 2 will fly away, at a 90 degree angle with the flight path.</p>
 <div class="figure">
-<img src="../../images/loopy/0-2-2-3.png" />
+<img src="../../images/loopy/0-2-2-3.png" alt />
+
 </div>
 <h2 id="turrets">Turrets</h2>
 <p>It is common to have a 2 with a side that is not part of the loop. I call them turrets. Turrets behave like 3s because all but one of their unknown sides are part of the loop.</p>
@@ -96,16 +107,19 @@
 <p>Unlike 3s, turrets cannot fly away. When they shoot on one side they get a leg on the other side.</p>
 <p>Turrets automatically appear when a 2 shares a side with a 0. In this example, a turret and a 3 are shooting at each other.</p>
 <div class="figure">
-<img src="../../images/loopy/2-3-Turret.png" />
+<img src="../../images/loopy/2-3-Turret.png" alt />
+
 </div>
 <p>A 3 on top of a turret (that is, on the opposite side of the turret’s empty side) always has a segment of the loop on the side opposite of the turret.</p>
 <div class="figure">
-<img src="../../images/loopy/0-2-3.png" />
+<img src="../../images/loopy/0-2-3.png" alt />
+
 </div>
 <h2 id="combining-patterns">Combining Patterns</h2>
 <p>A parallel formation of 3s next to a few well placed 2s often creates a nice avalanche of turrets.</p>
 <div class="figure">
-<img src="../../images/loopy/3-3-2-2-2.png" />
+<img src="../../images/loopy/3-3-2-2-2.png" alt />
+
 </div>
 <h2 id="other-inferred-rules">Other inferred rules</h2>
 <p>There are a lot of other patterns, I won’t mention hem all. They can all be discovered by simply applying the rules or by using brute force.</p>
