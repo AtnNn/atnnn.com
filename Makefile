@@ -1,6 +1,5 @@
 SHELL := /bin/bash
 
-site := dist/build/site/site
 sitegit := cd _site && git
 build_mode := build
 
@@ -27,10 +26,10 @@ rebuild: _site
 
 .PHONY: watch
 watch: _site
-	cabal run watch
+	stack exec site watch
 
-_site: $(site) $(wildcard about.rst css/* github/* index.html posts/* contact.markdown images/* templates/*)
-	cabal run $(build_mode)
+_site: $(wildcard about.rst css/* github/* index.html posts/* contact.markdown images/* templates/*)
+	stack exec site $(build_mode)
 	if [[ -e _site/.git ]]; then \
 	  $(sitegit) checkout --detach --quiet; \
 	else \
@@ -40,7 +39,3 @@ _site: $(site) $(wildcard about.rst css/* github/* index.html posts/* contact.ma
 	$(sitegit) fetch .. +gh-pages:gh-pages
 	$(sitegit) symbolic-ref HEAD refs/heads/gh-pages
 	$(sitegit) reset
-
-$(site): site.hs
-	cabal build
-	$(eval build_mode := rebuild)
