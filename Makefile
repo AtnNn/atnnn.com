@@ -17,8 +17,12 @@ commit: _site
 	$(sitegit) commit -am "`date` `cd .. && git log -1 HEAD --pretty=format:%H`"
 	git fetch _site gh-pages:gh-pages
 
-publish: commit
+publish-web:
 	git push --all
+
+publish-ipfs:
+	hash=`ipfs add -rq _site | tail -n 1` && \
+	  ssh circus.atnnn.com bash -c $$(printf "%q" ". code/ipfs/env; ipfs pin add $$hash && ipfs name publish $$hash")
 
 .PHONY: rebuild
 rebuild: build_mode = rebuild
@@ -39,3 +43,4 @@ _site: $(wildcard about.rst css/* github/* index.html posts/* contact.markdown i
 	$(sitegit) fetch .. +gh-pages:gh-pages
 	$(sitegit) symbolic-ref HEAD refs/heads/gh-pages
 	$(sitegit) reset
+	$(sitegit) add -N --all .

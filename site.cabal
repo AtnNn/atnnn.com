@@ -6,7 +6,7 @@ version:             0.1.0.0
 -- synopsis:            
 -- description:         
 homepage:            http://atnnn.com/
-license:             AllRightsReserved
+license:             BSD3
 author:              Etienne Laurin
 maintainer:          etienne@atnnn.com
 -- copyright:           
