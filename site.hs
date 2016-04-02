@@ -11,8 +11,6 @@ import Control.Applicative
 
 {- TODO
 
-- favicon
-- tags aka categories (buildTags)
 - irish recordings
 - links to projects on github
 - better home page
@@ -69,8 +67,9 @@ main = hakyllWith config $ do
               >>= loadAndApplyTemplate "templates/default.html" postCtx
               >>= relativizeUrls
         compile $ do
-          -- categories <- parseCategories <$> getMetadataField' "category" undefined
-          -- saveSnapshot "category" =<< makeItem categories
+          curId <- getUnderlying
+          categories <- parseCategories <$> getMetadataField' curId "category"
+          saveSnapshot "category" =<< makeItem categories
           postLayout
           
           
@@ -103,8 +102,9 @@ postCtx =
                                 else route)
     <> defaultContext
 
--- parseCategories :: String -> [String]
--- parseCategories = either (const ["misc"]) id . parse cats "category"
---   where
---    cats = many1 (spaces *> manyTill anyChar space <* space) `sepBy` (char ',')
+parseCategories :: String -> [String]
+parseCategories = either (const ["misc"]) id . parse cats "category"
+  where
+    cats :: Parsec String () [String]
+    cats = spaces *> manyTill anyChar (char ',') `sepBy1` (char ',')
 

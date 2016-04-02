@@ -44,3 +44,6 @@ _site: $(wildcard about.rst css/* github/* index.html posts/* contact.markdown i
 	$(sitegit) symbolic-ref HEAD refs/heads/gh-pages
 	$(sitegit) reset
 	$(sitegit) add -N --all .
+
+serve:
+	warp -d _site
