@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>AtnNn.com - C++ left arrow operator</title>
+        <link rel="stylesheet" type="text/css" href="../../css/default.css" />
+    </head>
+    <body>
+        <div id="header">
+            <div id="logo">
+                <a href="../../">Etienne Laurin</a>
+            </div>
+            <div id="navigation">
+                <a href="../../about">About</a>
+            </div>
+        </div>
+        <div id="content">
+            <h1>C++ left arrow operator</h1>
+
+            <div class="info">
+    Posted on July 29, 2016
+    
+</div>
+
+<p>Sometimes you have a pointer to a class, and you want to invoke a method. You can use the <code>-&gt;</code> operator for that.</p>
+<p>So what do you do when you have a pointer to a method, and want to invoke it on a class? Use the <code>&lt;-</code> operator!</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="ot">#include &lt;iostream&gt;</span>
+ 
+<span class="kw">template</span>&lt;<span class="kw">class</span> T&gt;
+<span class="kw">struct</span> larrow {
+    larrow(T* a_) : a(a_) { }
+    T* a;
+};
+ 
+<span class="kw">template</span> &lt;<span class="kw">class</span> T, <span class="kw">class</span> R&gt;
+R <span class="kw">operator</span>&lt;(R (T::* f)(), larrow&lt;T&gt; it) {
+    <span class="kw">return</span> (it.a-&gt;*f)();
+}
+ 
+<span class="kw">template</span>&lt;<span class="kw">class</span> T&gt;
+larrow&lt;T&gt; <span class="kw">operator</span>-(T&amp; a) {
+    <span class="kw">return</span> larrow&lt;T&gt;(&amp;a);
+}
+ 
+<span class="kw">struct</span> C {
+    <span class="dt">void</span> f() { std::cout &lt;&lt; <span class="st">&quot;foo</span><span class="ch">\n</span><span class="st">&quot;</span>; }    
+};
+ 
+<span class="dt">int</span> main() {
+    C x;
+    (&amp;C::f)&lt;-x;
+}</code></pre></div>
+
+        </div>
+        <div id="footer">
+          © 2010-2016 Etienne Laurin
+        </div>
+    </body>
+</html>
