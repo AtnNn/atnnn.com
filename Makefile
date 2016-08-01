@@ -22,7 +22,8 @@ publish-web:
 
 publish-ipfs:
 	hash=`ipfs add -rq _site | tail -n 1` && \
-	  ssh -v circus.atnnn.com bash -c $$(printf "%q" ". code/ipfs/env; ipfs pin add $$hash && ipfs name publish $$hash")
+	  echo HASH: $$hash && \
+	  ssh circus.atnnn.com bash -c $$(printf "%q" ". code/ipfs/env; ipfs pin add $$hash && ipfs name publish $$hash")
 
 .PHONY: rebuild
 rebuild: build_mode = rebuild
