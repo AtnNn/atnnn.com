@@ -219,7 +219,7 @@ location / {
 
 ## Enjoy IPFS
 
-Now my website is available over IPFS, just like may others such as
+Now my website is available over IPFS, just like many others such as
 [neocities.org](https://neocities.org/permanent-web) and
 [ipfs.pics](https://ipfs.pics/). But hosting websites is not the only
 thing IPFS can do. I've also used IPFS for other projects, as a
