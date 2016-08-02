@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>AtnNn.com - Serving a website over IPFS</title>
+        <link rel="stylesheet" type="text/css" href="../../css/default.css" />
+    </head>
+    <body>
+        <div id="header">
+            <div id="logo">
+                <a href="../../">Etienne Laurin</a>
+            </div>
+            <div id="navigation">
+                <a href="../../about">About</a>
+            </div>
+        </div>
+        <div id="content">
+            <h1>Serving a website over IPFS</h1>
+
+            <div class="info">
+    Posted on August  2, 2016
+    
+</div>
+
+<p>This page is available over HTTP at <a href="http://atnnn.com/p/ipfs-hosting">http://atnnn.com</a> but also over IPFS at <a href="http://ipfs.io/ipns/atnnn.com/p/ipfs-hosting">/ipns/atnnn.com</a>. Here’s how I do it:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ipfs</span> name publish <span class="kw">`ipfs</span> add -rq ~/atnnn.com/_site <span class="kw">|</span> <span class="kw">tail</span> -n 1<span class="kw">`</span></code></pre></div>
+<p>The rest of this article goes into more details and explains why you might want to do it too.</p>
+<p>I discovered <a href="http://ipfs.io">IPFS</a> when I saw <a href="https://www.youtube.com/watch?v=8CMxDNuuAiQ">this amazing demo</a> on <a href="https://news.ycombinator.com/item?id=9083849">Hacker News</a> last year. I’ve been using it regularly ever since, and I even <a href="https://github.com/ipfs/go-ipfs/commits?author=AtnNn">fixed a few annoyances</a> that I found.</p>
+<h2 id="a-quick-overview-of-ipfs">A quick overview of IPFS</h2>
+<p>IPFS is a great way to share files. IPFS stands for Inter-Planetary File System. The name is as ambitious as the project’s goal to replace HTTP.</p>
+<ul>
+<li><p>An <em>IPFS gateway</em>, such as <a href="http://ipfs.io" class="uri">http://ipfs.io</a>, lets you use IPFS without installing it.</p></li>
+<li><p>An <em>IPFS daemon</em> is an application that runs in the background, allowing you to use IPFS locally.</p></li>
+<li><p>The <em>IPFS swarm</em> is a decentralised network of IPFS daemons. Daemons find each other using a DHT or mDNS.</p></li>
+<li><p>An <em>IPFS hash</em> uniquely identifies each file and directory.</p></li>
+<li><p><em>IPNS</em>, the IPFS Name System, allows finding files by name instead of using long cryptic hashes.</p></li>
+<li><p>An <em>IPFS mount</em> allows publishing and accessing files to and from IPFS as if they were local files.</p></li>
+<li><p>The <em>IPFS repo</em> stores a temporary local copy of files fetched from IPFS. This copy becomes permanent if the file is <em>pinned</em>.</p></li>
+<li><p><em>IPFS bitswap</em> is a bittorrrent-like algorithm for efficiently transfering files over IPFS. All files in the repo are automatically shared with the rest of the swarm.</p></li>
+<li><p><a href="https://github.com/ipfs/go-ipfs"><em>go-ipfs</em></a> is the main implementation of IPFS.</p></li>
+</ul>
+<p>The <a href="https://github.com/ipfs/specs">the IPFS spec</a> has more details on how all these concepts work together.</p>
+<h2 id="installing-ipfs">Installing IPFS</h2>
+<p>You can follow the <a href="https://ipfs.io/docs/install/">official instructions</a> to install IPFS on your computer. If you are running a 64-bit Linux, you can follow along with me. I start by downloading and extracting IPFS:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">wget</span> https://dist.ipfs.io/go-ipfs/v0.4.3-rc1/go-ipfs_v0.4.3-rc1_linux-amd64.tar.gz
+$ <span class="kw">tar</span> xf go-ipfs_v0.4.3-rc1_linux-amd64.tar.gz</code></pre></div>
+<p>Then I install the <code>ipfs</code> binary to my <code>PATH</code> and initialize the IPFS repo:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">mv</span> go-ipfs/ipfs /usr/local/bin/ipfs
+$ <span class="kw">ipfs</span> init
+<span class="kw">initializing</span> ipfs node at /home/atnnn/.ipfs
+<span class="kw">generating</span> 2048-bit RSA keypair...done
+<span class="kw">peer</span> identity: QmSg4AzfWd6YHrDyZp2w7FqTeP6fAQcb6X5wQ8KoVYYvaP</code></pre></div>
+<p>I start the IPFS daemon to connect to the swarm:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">ipfs</span> daemon
+<span class="kw">Initializing</span> daemon...
+<span class="kw">Swarm</span> listening on /ip4/127.0.0.1/tcp/4001
+<span class="kw">Swarm</span> listening on /ip4/172.17.0.1/tcp/4001
+<span class="kw">Swarm</span> listening on /ip4/69.132.122.247/tcp/4001
+<span class="kw">Swarm</span> listening on /ip6/::1/tcp/4001
+<span class="kw">API</span> server listening on /ip4/127.0.0.1/tcp/5001
+<span class="kw">Gateway</span> (readonly) <span class="kw">server</span> listening on /ip4/127.0.0.1/tcp/8080
+<span class="kw">Daemon</span> is ready</code></pre></div>
+<p>I let the daemon run in the background.</p>
+<h2 id="adding-my-website-to-ipfs">Adding my website to IPFS</h2>
+<p>I store my website in my local <code>atnnn.com/_site</code> folder. The whole process of uploading it is automated in a <a href="https://github.com/AtnNn/atnnn.com/blob/master/Makefile#L23-L25"><code>Makefile</code></a>. Let me take you through it step by step.</p>
+<p>But first, here’s how you might download a local copy of your website. Replace <code>www.atnnn.com</code> with your own website:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="ot">SITE=</span>www.atnnn.com
+$ <span class="kw">wget</span> --mirror --convert-links --page-requisites http://<span class="ot">$SITE</span>
+<span class="kw">Total</span> wall clock time: 2.7s
+<span class="kw">Downloaded</span>: 40 files, 2.4M in 0.5s (4.69 MB/s)
+<span class="kw">Converted</span> links in 20 files in 0.003 seconds.</code></pre></div>
+<p>It’s important to use relative links and to include all assets such as images, styles and fonts. <code>wget</code> will try to do that if you tell it to <code>--convert-links</code> and to download <code>--page-requisites</code> but it isn’t perfect.</p>
+<p>After building a local copy of my website, I can add it to IPFS:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">ipfs</span> add -r <span class="ot">$SITE</span>
+<span class="kw">added</span> QmcgHMhAzAqZpQUnarDhqA8XhAbYuHuixkUH2r5T8S9YtP atnnn.com/_site</code></pre></div>
+<p>My website is now available via IPFS at:</p>
+<p><a href="https://ipfs.io/ipfs/QmcgHMhAzAqZpQUnarDhqA8XhAbYuHuixkUH2r5T8S9YtP/">/ipfs/QmcgHMhAzAqZpQUnarDhqA8XhAbYuHuixkUH2r5T8S9YtP/</a></p>
+<h2 id="linking-to-my-website-on-ipfs">Linking to my website on IPFS</h2>
+<p>So far, all I’ve got is a long and cryptic hash to identify my website. Using it has many advantages:</p>
+<ul>
+<li><p>It’s a secure hash. Anyone can host a copy of my website but all visitors can have the guarantee that it hasn’t been modified.</p></li>
+<li><p>If you link to my website, you can pin that hash and make sure your link never dies. If I stop hosting my website, the link will not die as long as someone else still has it pinned.</p></li>
+<li><p>If I turn my website into a My Little Pony fansite, the link will still point to my original site.</p></li>
+<li><p>Visitors can automatically download the website from each other, reducing their load time and the load on my IPFS daemon.</p></li>
+</ul>
+<p>To make sure my website stays online, I am going to pin it on another machine. I have a Linode VPS that I use for that purpose, called <code>ipfs.atnnn</code>:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">ssh</span> ipfs.atnnn
+<span class="kw">ipfs.atnnn</span>$ ipfs pin add QmcgHMhAzAqZpQUnarDhqA8XhAbYuHuixkUH2r5T8S9YtP
+<span class="kw">pinned</span> QmcgHMhAzAqZpQUnarDhqA8XhAbYuHuixkUH2r5T8S9YtP recursively</code></pre></div>
+<p>I can also use the id of my IPFS daemon as an updatable pointer to my website:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ipfs.atnnn</span>$ ipfs name publish QmcgHMhAzAqZpQUnarDhqA8XhAbYuHuixkUH2r5T8S9YtP
+<span class="kw">Published</span> to QmbtTW3Lj5ad3UotQ7YzKx8bSSaXKirn2ggxxaZWV28z3D</code></pre></div>
+<p>The hash starting with <code>QmbtTW3L</code> is the unique id of my IPFS daemon. My website can now be accessed using IPNS at that id:</p>
+<p><a href="https://ipfs.io/ipns/QmbtTW3Lj5ad3UotQ7YzKx8bSSaXKirn2ggxxaZWV28z3D">/ipns/QmbtTW3Lj5ad3UotQ7YzKx8bSSaXKirn2ggxxaZWV28z3D</a></p>
+<p>The id is also the hash of a public key and IPNS forbids anyone else from publishing to it. It provides me with safe link that I can share and that will always point to the newest version of my website.</p>
+<p>But it is still long and cryptic. To fix that, IPNS lets me use a domain name as an alias for any IPFS or IPNS path. To do so, I added a <code>TXT</code> record to my domain with the special <code>dnslink=</code> setting. My DNS provider, ZoneEdit, lets me do this easily:</p>
+<div class="figure">
+<img src="../../images/dnslink.png" alt />
+
+</div>
+<p>I can verify that the record is in place:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">host</span> -t TXT atnnn.com
+<span class="kw">atnnn.com</span> descriptive text <span class="st">&quot;dnslink=/ipns/QmbtTW3Lj5ad3UotQ7YzKx8bSSaXKirn2ggxxaZWV28z3D&quot;</span></code></pre></div>
+<p>IPNS happily follows this record and I can share a new link to my website:</p>
+<p><a href="https://ipfs.io/ipns/atnnn.com/">/ipns/atnnn.com</a></p>
+<h2 id="the-ipfs-gateway">The IPFS gateway</h2>
+<p>The public <code>http://ipfs.io</code> HTTP gateway is the easiest way to share IPFS and IPNS links with people who do not have IPFS installed.</p>
+<p>If you have IPFS installed, you can access these links directly through IPFS by using a browser plugin, such as <a href="https://addons.mozilla.org/en-US/firefox/addon/ipfs-gateway-redirect/">this one for Firefox</a> or <a href="https://chrome.google.com/webstore/detail/ipfs-station/kckhgoigikkadogfdiojcblegfhdnjei">this one for Chrome</a>.</p>
+<p>Another alternative is to host an IPFS gateway yourself. You can restrict which IPFS websites can be accessed using a reverse proxy such as Nginx. For example, I might use this Nginx configuration:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">location / <span class="op">{</span>
+  rewrite /(.<span class="op">*</span>) /ipns/<span class="va">atnnn</span>.<span class="at">com</span>/$1 <span class="cf">break</span><span class="op">;</span>
+  proxy_pass <span class="dt">http</span><span class="op">:</span><span class="co">//127.0.0.1:8080;</span>
+<span class="op">}</span></code></pre></div>
+<h2 id="enjoy-ipfs">Enjoy IPFS</h2>
+<p>Now my website is available over IPFS, just like may others such as <a href="https://neocities.org/permanent-web">neocities.org</a> and <a href="https://ipfs.pics/">ipfs.pics</a>. But hosting websites is not the only thing IPFS can do. I’ve also used IPFS for other projects, as a replacement for Rsync when sharing build artifacts between servers and as a replacement for Bittorrent for sharing large files with friends.</p>
+<p>I don’t think IPFS will ever replace HTTP, but I’m certain it can keep improving the web for both users and developers.</p>
+
+        </div>
+        <div id="footer">
+          © 2010-2016 Etienne Laurin
+        </div>
+    </body>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-11375946-4', 'auto');
+  ga('send', 'pageview');
+</script>
+</html>
