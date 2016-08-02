@@ -174,7 +174,7 @@ daemon. My website can now be accessed using IPNS at that id:
 [/ipns/QmbtTW3Lj5ad3UotQ7YzKx8bSSaXKirn2ggxxaZWV28z3D](https://ipfs.io/ipns/QmbtTW3Lj5ad3UotQ7YzKx8bSSaXKirn2ggxxaZWV28z3D)
 
 The id is also the hash of a public key and IPNS forbids anyone else
-from publishing to it. It provides me with safe link that I can share
+from publishing to it. It provides me with a safe link that I can share
 and that will always point to the newest version of my website.
 
 But it is still long and cryptic. To fix that, IPNS lets me use a
