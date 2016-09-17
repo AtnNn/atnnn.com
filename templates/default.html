@@ -13,6 +13,7 @@
                 <a href="/">Etienne Laurin</a>
             </div>
             <div id="navigation">
+                <a href="https://twitch.tv/choongmoo" class="on-air" style="display:none">Live Now</a>
                 <a href="/about">About</a>
             </div>
         </div>
@@ -32,5 +33,17 @@
   })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
   ga('create', 'UA-11375946-4', 'auto');
   ga('send', 'pageview');
+</script>
+<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script>
+  $$.ajax({
+  url: 'https://api.twitch.tv/kraken/streams/choongmoo',
+  dataType: "json",
+  headers: {"Client-ID": "mznbgisvte41vmhkavwixj9g8sdosta"},
+  success: function(c){
+    console.log("channel info", c);
+    if (c["stream"]!=null){
+      $$('.on-air').show();
+    }}});
 </script>
 </html>

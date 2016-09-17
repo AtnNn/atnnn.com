@@ -128,3 +128,20 @@ pre {
 strong { font-weight: bold; }
 
 em { font-style: italic }
+
+@keyframes on-air-blink {
+  0% { color: black; }
+  20% { color: red; }
+  40% { color: black; }
+}
+@-webkit-keyframes on-air-blink {
+  0% { color: black; }
+  10% { color: red; }
+  20% { color: black; }
+}
+
+.on-air {
+  -webkit-animation: on-air-blink 3s linear infinite;
+  -moz-animation: on-air-blink 3s linear infinite;
+  animation: on-air-blink 3s linear infinite;
+}
