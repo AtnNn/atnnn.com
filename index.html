@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>AtnNn.com - Articles</title>
+        <title>AtnNn.com - Home</title>
         <link rel="stylesheet" type="text/css" href="./css/default.css" />
     </head>
     <body>
@@ -16,9 +16,11 @@
             </div>
         </div>
         <div id="content">
-            <h1>Articles</h1>
+            <h1>Home</h1>
 
-            <ul>
+            <div id="livestream"></div>
+
+<ul>
     
         <li>
             <a href="./p/ipfs-hosting">Serving a website over IPFS</a> - August  2, 2016
@@ -90,6 +92,23 @@
     
 </ul>
 
+
+<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="http://player.twitch.tv/js/embed/v1.js"></script>
+<script>
+  $.ajax({
+  url: 'https://api.twitch.tv/kraken/streams/choongmoo',
+  dataType: "json",
+  headers: {"Client-ID": "mznbgisvte41vmhkavwixj9g8sdosta"},
+  success: function(c){
+    console.log("channel info", c);
+    if (c["stream"]!=null){
+      p = new Twitch.Player("livestream",{
+        width: 600,
+        height: 337,
+        channel: "choongmoo"});
+      p.setVolume(0);}}});
+</script>
 
         </div>
         <div id="footer">
