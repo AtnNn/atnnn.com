@@ -1,5 +1,5 @@
 ---
-title: Demo: video streaming with RethinkDB
+title: "Demo: video streaming with RethinkDB"
 date: 2015-03-20
 category: code
 ---

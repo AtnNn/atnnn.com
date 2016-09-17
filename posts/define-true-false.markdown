@@ -1,5 +1,5 @@
 ---
-title: #define true false
+title: "#define true false"
 date: 2011-03-16
 category: code, humor
 ---

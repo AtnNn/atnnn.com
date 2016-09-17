@@ -1,4 +1,4 @@
-SHELL := /bin/bash
+SHELL := bash
 
 sitegit := cd _site && git
 build_mode := build
@@ -31,14 +31,15 @@ rebuild: _site
 
 .PHONY: watch
 watch: _site
-	stack exec site watch
+	cabal run watch
 
 _site: $(wildcard about.rst css/* github/* index.html posts/* contact.markdown images/* templates/*)
-	stack exec site $(build_mode)
+	cabal run $(build_mode)
 	if [[ -e _site/.git ]]; then \
 	  $(sitegit) checkout --detach --quiet; \
 	else \
 	  $(sitegit) init; \
+	  pwd;pwd;pwd; \
 	  echo "../../../.git/objects" > .git/objects/info/alternates; \
 	fi
 	$(sitegit) fetch .. +gh-pages:gh-pages
