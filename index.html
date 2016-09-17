@@ -1,5 +1,24 @@
 ---
-title: Articles
+title: Home
 ---
 
+<div id="livestream"></div>
+
 $partial("templates/post-list.html")$
+
+<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src= "http://player.twitch.tv/js/embed/v1.js"></script>
+<script>
+  $$.ajax({
+  url: 'https://api.twitch.tv/kraken/streams/choongmoo',
+  dataType: "json",
+  headers: {"Client-ID": "mznbgisvte41vmhkavwixj9g8sdosta"},
+  success: function(c){
+    console.log("channel info", c);
+    if (c["stream"]!=null){
+      p = new Twitch.Player("livestream",{
+        width: 600,
+        height: 337,
+        channel: "choongmoo"});
+      p.setVolume(0);}}});
+</script>
