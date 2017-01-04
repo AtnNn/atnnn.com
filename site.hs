@@ -8,6 +8,7 @@ import Text.Parsec
 import Text.Parsec.Token
 import Data.Either
 import Control.Applicative
+import GHC.IO.Encoding (setLocaleEncoding, utf8)
 
 {- TODO
 
@@ -39,7 +40,9 @@ config = defaultConfiguration {
 noExtRoute = customRoute $ (++"/index.html") . dropExtension . toFilePath
 
 main :: IO ()
-main = hakyllWith config $ do
+main = do
+  setLocaleEncoding utf8
+  hakyllWith config $ do
     match "root/*" $ do
         route $ gsubRoute "root/" (const "")
         compile copyFileCompiler
