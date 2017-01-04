@@ -2,6 +2,8 @@ SHELL := bash
 
 sitegit := cd _site && git
 build_mode := build
+# site := cabal run
+site := stack exec site
 
 .PHONY: all
 all: _site
@@ -31,10 +33,10 @@ rebuild: _site
 
 .PHONY: watch
 watch: _site
-	cabal run watch
+	$(site) watch
 
 _site: $(wildcard about.rst css/* github/* index.html posts/* contact.markdown images/* templates/*)
-	cabal run $(build_mode)
+	$(site) $(build_mode)
 	if [[ -e _site/.git ]]; then \
 	  $(sitegit) checkout --detach --quiet; \
 	else \
