@@ -50,26 +50,26 @@
 <li><p>The build toolchain is available in the <code>PATH</code></p></li>
 </ul>
 <p>This script will setup such an environment for us:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ot">CROSS=</span>~/pi-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf
-<span class="kw">export</span> <span class="ot">CC=$CROSS</span>-gcc
-<span class="kw">export</span> <span class="ot">CXX=$CROSS</span>-g++
-<span class="kw">export</span> <span class="ot">LD=$CROSS</span>-ld
-<span class="kw">export</span> <span class="ot">AR=$CROSS</span>-ar
-<span class="kw">export</span> <span class="ot">RANLIB=$CROSS</span>-ranlib</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="va">CROSS=</span>~/pi-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf
+<span class="bu">export</span> <span class="va">CC=$CROSS</span>-gcc
+<span class="bu">export</span> <span class="va">CXX=$CROSS</span>-g++
+<span class="bu">export</span> <span class="va">LD=$CROSS</span>-ld
+<span class="bu">export</span> <span class="va">AR=$CROSS</span>-ar
+<span class="bu">export</span> <span class="va">RANLIB=$CROSS</span>-ranlib</code></pre></div>
 <p>We can pass the <code>-dumpmachine</code> argument to GCC to check the target architecture:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">uname</span> -om
-<span class="kw">x86_64</span> GNU/Linux
-$ <span class="kw">gcc</span> -dumpmachine
-<span class="kw">x86_64-linux-gnu</span>
-$ <span class="ot">$CXX</span> <span class="kw">-dumpmachine</span>
-<span class="kw">arm-linux-gnueabihf</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="fu">uname</span> -om
+<span class="ex">x86_64</span> GNU/Linux
+$ <span class="fu">gcc</span> -dumpmachine
+<span class="ex">x86_64-linux-gnu</span>
+$ <span class="va">$CXX</span> <span class="ex">-dumpmachine</span>
+<span class="ex">arm-linux-gnueabihf</span></code></pre></div>
 <h2 id="the-build">The build</h2>
 <p>We can now fetch and build RethinkDB for the Raspberry Pi.</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> clone -b v2.0.x https://github.com/rethinkdb/rethinkdb
-<span class="kw">cd</span> rethinkdb
-<span class="kw">rm</span> -rf external/v8*
-<span class="kw">./configure</span> --allow-fetch --with-system-malloc
-<span class="kw">make</span> -j <span class="kw">`nproc`</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">git</span> clone -b v2.0.x https://github.com/rethinkdb/rethinkdb
+<span class="bu">cd</span> rethinkdb
+<span class="fu">rm</span> -rf external/v8*
+<span class="ex">./configure</span> --allow-fetch --with-system-malloc
+<span class="fu">make</span> -j <span class="kw">`</span><span class="ex">nproc</span><span class="kw">`</span></code></pre></div>
 <ul>
 <li><p>Cross-compiling has been tested in the v2.0.x branch.</p></li>
 <li><p>The bundled version of v8 does not include a copy of the ICU library, which it requires for cross-compiling, so it has to be removed</p></li>

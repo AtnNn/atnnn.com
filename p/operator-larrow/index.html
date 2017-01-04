@@ -26,26 +26,26 @@
 
 <p>Sometimes you have a pointer to a class, and you want to invoke a method. You can use the <code>-&gt;</code> operator for that.</p>
 <p>So what do you do when you have a pointer to a method, and want to invoke it on a class? Use the <code>&lt;-</code> operator!</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="ot">#include &lt;iostream&gt;</span>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span>
  
 <span class="kw">template</span>&lt;<span class="kw">class</span> T&gt;
 <span class="kw">struct</span> larrow {
-    larrow(T* a_) : a(a_) { }
+    larrow(T* <span class="va">a_</span>) : a(<span class="va">a_</span>) { }
     T* a;
 };
  
 <span class="kw">template</span> &lt;<span class="kw">class</span> T, <span class="kw">class</span> R&gt;
 R <span class="kw">operator</span>&lt;(R (T::* f)(), larrow&lt;T&gt; it) {
-    <span class="kw">return</span> (it.a-&gt;*f)();
+    <span class="cf">return</span> (it.a-&gt;*f)();
 }
  
 <span class="kw">template</span>&lt;<span class="kw">class</span> T&gt;
 larrow&lt;T&gt; <span class="kw">operator</span>-(T&amp; a) {
-    <span class="kw">return</span> larrow&lt;T&gt;(&amp;a);
+    <span class="cf">return</span> larrow&lt;T&gt;(&amp;a);
 }
  
 <span class="kw">struct</span> C {
-    <span class="dt">void</span> f() { std::cout &lt;&lt; <span class="st">&quot;foo</span><span class="ch">\n</span><span class="st">&quot;</span>; }    
+    <span class="dt">void</span> f() { <span class="bu">std::</span>cout &lt;&lt; <span class="st">&quot;foo</span><span class="sc">\n</span><span class="st">&quot;</span>; }    
 };
  
 <span class="dt">int</span> main() {
