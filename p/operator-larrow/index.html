@@ -12,8 +12,11 @@
                 <a href="../../">Etienne Laurin</a>
             </div>
             <div id="navigation">
-                <a href="https://twitch.tv/choongmoo" class="on-air" style="display:none">Live Now</a>
-                <a href="../../about">About</a>
+              <a href="https://twitch.tv/choongmoo" class="stream-status">
+                <span class="stream-online">Live Now</span>
+                <span class="stream-offline">Off Air</span>
+              </a>
+              <a href="../../about">About</a>
             </div>
         </div>
         <div id="content">
@@ -75,7 +78,7 @@ larrow&lt;T&gt; <span class="kw">operator</span>-(T&amp; a) {
   success: function(c){
     console.log("channel info", c);
     if (c["stream"]!=null){
-      $('.on-air').show();
-    }}});
+      $('.stream-status').addClass('online');
+    }});
 </script>
 </html>
