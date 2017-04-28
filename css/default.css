@@ -142,8 +142,8 @@ em { font-style: italic }
 
 .stream-status.online .stream-online { display: inline; }
 .stream-status.online .stream-offline { display: none; }
+.stream-status .stream-online { display: none; }
 .stream-status .stream-offline { display: inline; }
-.stream-status .stream-offline { display: none; }
 
 .stream-online {
   -webkit-animation: on-air-blink 3s linear infinite;
