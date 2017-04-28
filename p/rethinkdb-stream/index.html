@@ -48,6 +48,7 @@
 </script>
 <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 <script>
+function checkTwitch(){
   $.ajax({
   url: 'https://api.twitch.tv/kraken/streams/choongmoo',
   dataType: "json",
@@ -56,6 +57,11 @@
     console.log("channel info", c);
     if (c["stream"]!=null){
       $('.stream-status').addClass('online');
-    }});
+    }else{
+      $('.stream-status').removeClass('online');
+    }}});
+}
+checkTwitch();
+setInterval(checkTwitch, 2 * 60 * 1000);
 </script>
 </html>
