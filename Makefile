@@ -2,8 +2,8 @@ SHELL := bash
 
 sitegit := cd _site && git
 build_mode := build
-# site := cabal run
-site := stack exec site
+site := cabal run
+# site := stack exec site
 
 .PHONY: all
 all: _site
@@ -42,7 +42,7 @@ _site: $(wildcard about.rst css/* github/* index.html posts/* contact.markdown i
 	else \
 	  $(sitegit) init; \
 	  pwd;pwd;pwd; \
-	  echo "../../../.git/objects" > .git/objects/info/alternates; \
+	  echo "../../.git/objects" > .git/objects/info/alternates; \
 	fi
 	$(sitegit) fetch .. +gh-pages:gh-pages
 	$(sitegit) symbolic-ref HEAD refs/heads/gh-pages
