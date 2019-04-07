@@ -33,115 +33,115 @@
 <p>The prelude has an Integer type that can represent any positive or negative integer. GHC has a new feature, data kind promotion, which automatically promotes data types and constructors into data kinds and types when it is possible. It is not possible to promote this type because its implementation is hidden.</p>
 <p>GHC has a Nat kind which allows any natural number to be used as a type, but they cannot be used to replace Integer.</p>
 <p>The <code>Prelude.Type.Integer</code> module provides the <code>Integer</code> kind, implemented as an unbounded list of bits using twos-complement. The <code>I</code> class converts small <code>Nat</code>s into Integers.</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Integer</span> <span class="fu">=</span> <span class="dt">One</span> <span class="dt">Integer</span> <span class="fu">|</span> <span class="dt">Zero</span> <span class="dt">Integer</span> <span class="fu">|</span> <span class="dt">Ones</span> <span class="fu">|</span> <span class="dt">Zeros</span>
-
-<span class="kw">type</span> family <span class="dt">I</span> (<span class="ot">a ::</span> <span class="dt">Nat</span>)<span class="ot"> ::</span> <span class="dt">Integer</span>
-<span class="kw">type</span> <span class="kw">instance</span> <span class="dt">I</span> <span class="dv">0</span> <span class="fu">=</span> <span class="dt">Zeros</span>
-<span class="kw">type</span> <span class="kw">instance</span> <span class="dt">I</span> <span class="dv">1</span> <span class="fu">=</span> <span class="dt">One</span> <span class="dt">Zeros</span>
-<span class="kw">type</span> <span class="kw">instance</span> <span class="dt">I</span> <span class="dv">2</span> <span class="fu">=</span> <span class="dt">Zero</span> (<span class="dt">One</span> (<span class="dt">Zeros</span>))
-<span class="kw">type</span> <span class="kw">instance</span> <span class="dt">I</span> <span class="dv">3</span> <span class="fu">=</span> <span class="dt">One</span> (<span class="dt">One</span> <span class="dt">Zeros</span>)
-<span class="kw">type</span> <span class="kw">instance</span> <span class="dt">I</span> <span class="dv">4</span> <span class="fu">=</span> <span class="dt">Zero</span> (<span class="dt">Zero</span> (<span class="dt">One</span> <span class="dt">Zeros</span>))</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">data</span> <span class="dt">Integer</span> <span class="fu">=</span> <span class="dt">One</span> <span class="dt">Integer</span> <span class="fu">|</span> <span class="dt">Zero</span> <span class="dt">Integer</span> <span class="fu">|</span> <span class="dt">Ones</span> <span class="fu">|</span> <span class="dt">Zeros</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">type</span> family <span class="dt">I</span> (<span class="ot">a ::</span> <span class="dt">Nat</span>)<span class="ot"> ::</span> <span class="dt">Integer</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">type</span> <span class="kw">instance</span> <span class="dt">I</span> <span class="dv">0</span> <span class="fu">=</span> <span class="dt">Zeros</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw">type</span> <span class="kw">instance</span> <span class="dt">I</span> <span class="dv">1</span> <span class="fu">=</span> <span class="dt">One</span> <span class="dt">Zeros</span></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="kw">type</span> <span class="kw">instance</span> <span class="dt">I</span> <span class="dv">2</span> <span class="fu">=</span> <span class="dt">Zero</span> (<span class="dt">One</span> (<span class="dt">Zeros</span>))</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="kw">type</span> <span class="kw">instance</span> <span class="dt">I</span> <span class="dv">3</span> <span class="fu">=</span> <span class="dt">One</span> (<span class="dt">One</span> <span class="dt">Zeros</span>)</a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="kw">type</span> <span class="kw">instance</span> <span class="dt">I</span> <span class="dv">4</span> <span class="fu">=</span> <span class="dt">Zero</span> (<span class="dt">Zero</span> (<span class="dt">One</span> <span class="dt">Zeros</span>))</a></code></pre></div>
 <p>Three extra type functions allow working with <code>Integer</code>s as if they really were lists of <code>Bool</code>s.</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> family <span class="dt">IntegerHead</span> (<span class="ot">i ::</span> <span class="dt">Integer</span>)<span class="ot"> ::</span> <span class="dt">Bool</span>
-<span class="kw">type</span> family <span class="dt">IntegerTail</span> (<span class="ot">i ::</span> <span class="dt">Integer</span>)<span class="ot"> ::</span> <span class="dt">Integer</span>
-<span class="kw">type</span> family <span class="dt">IntegerCons</span> (<span class="ot">b ::</span> <span class="dt">Bool</span>) (<span class="ot">i ::</span> <span class="dt">Integer</span>)<span class="ot"> ::</span> <span class="dt">Integer</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">type</span> family <span class="dt">IntegerHead</span> (<span class="ot">i ::</span> <span class="dt">Integer</span>)<span class="ot"> ::</span> <span class="dt">Bool</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">type</span> family <span class="dt">IntegerTail</span> (<span class="ot">i ::</span> <span class="dt">Integer</span>)<span class="ot"> ::</span> <span class="dt">Integer</span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw">type</span> family <span class="dt">IntegerCons</span> (<span class="ot">b ::</span> <span class="dt">Bool</span>) (<span class="ot">i ::</span> <span class="dt">Integer</span>)<span class="ot"> ::</span> <span class="dt">Integer</span></a></code></pre></div>
 <p>Most of the functions and operators from <code>Num</code> and <code>Integral</code> can be implemented very easily for this <code>Integer</code> kind. For example:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> family <span class="dt">Negate</span> (<span class="ot">a ::</span> k)<span class="ot"> ::</span> k
-<span class="kw">type</span> <span class="kw">instance</span> <span class="dt">Negate</span> a <span class="fu">=</span> <span class="dt">Complement</span> a <span class="fu">+</span> <span class="dt">I</span> <span class="dv">1</span>
-
-<span class="kw">type</span> family (<span class="ot">a ::</span> k) <span class="fu">*</span> (<span class="ot">b ::</span> k)<span class="ot"> ::</span> k
-<span class="kw">type</span> <span class="kw">instance</span> <span class="dt">Zeros</span> <span class="fu">*</span> j <span class="fu">=</span> <span class="dt">Zeros</span>
-<span class="kw">type</span> <span class="kw">instance</span> <span class="dt">Ones</span> <span class="fu">*</span> j <span class="fu">=</span> <span class="dt">Negate</span> j
-<span class="kw">type</span> <span class="kw">instance</span> (<span class="dt">Zero</span> i) <span class="fu">*</span> j <span class="fu">=</span> <span class="dt">IntegerCons</span> <span class="dt">False</span> (i <span class="fu">*</span> j)
-<span class="kw">type</span> <span class="kw">instance</span> (<span class="dt">One</span> i) <span class="fu">*</span> j <span class="fu">=</span> j <span class="fu">+</span> <span class="dt">IntegerCons</span> <span class="dt">False</span> (i <span class="fu">*</span> j)</code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">type</span> family <span class="dt">Negate</span> (<span class="ot">a ::</span> k)<span class="ot"> ::</span> k</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">type</span> <span class="kw">instance</span> <span class="dt">Negate</span> a <span class="fu">=</span> <span class="dt">Complement</span> a <span class="fu">+</span> <span class="dt">I</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="kw">type</span> family (<span class="ot">a ::</span> k) <span class="fu">*</span> (<span class="ot">b ::</span> k)<span class="ot"> ::</span> k</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="kw">type</span> <span class="kw">instance</span> <span class="dt">Zeros</span> <span class="fu">*</span> j <span class="fu">=</span> <span class="dt">Zeros</span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="kw">type</span> <span class="kw">instance</span> <span class="dt">Ones</span> <span class="fu">*</span> j <span class="fu">=</span> <span class="dt">Negate</span> j</a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="kw">type</span> <span class="kw">instance</span> (<span class="dt">Zero</span> i) <span class="fu">*</span> j <span class="fu">=</span> <span class="dt">IntegerCons</span> <span class="dt">False</span> (i <span class="fu">*</span> j)</a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="kw">type</span> <span class="kw">instance</span> (<span class="dt">One</span> i) <span class="fu">*</span> j <span class="fu">=</span> j <span class="fu">+</span> <span class="dt">IntegerCons</span> <span class="dt">False</span> (i <span class="fu">*</span> j)</a></code></pre></div>
 <h2 id="proxy">Proxy</h2>
 <p>Constructors, when promoted, become types. But these types do not have any values. The <code>Prelude.Type.Value</code> provides the <code>T</code> type (known elsewhere as <code>Proxy</code>).</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">T</span> a <span class="fu">=</span> <span class="dt">T</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">data</span> <span class="dt">T</span> a <span class="fu">=</span> <span class="dt">T</span></a></code></pre></div>
 <p>It also provides a method of converting a <code>T</code> into the value of its associated type.</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">class</span> <span class="dt">Value</span> (<span class="ot">a ::</span> k) (<span class="ot">t ::</span> <span class="fu">*</span>) <span class="fu">|</span> k <span class="ot">-&gt;</span> t <span class="kw">where</span><span class="ot"> value ::</span> <span class="dt">T</span> a <span class="ot">-&gt;</span> t</code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">class</span> <span class="dt">Value</span> (<span class="ot">a ::</span> k) (<span class="ot">t ::</span> <span class="fu">*</span>) <span class="fu">|</span> k <span class="ot">-&gt;</span> t <span class="kw">where</span><span class="ot"> value ::</span> <span class="dt">T</span> a <span class="ot">-&gt;</span> t</a></code></pre></div>
 <p>The <code>Value</code> instances for Integers converts each constructor into its corresponding value.</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">Value</span> <span class="dt">Zeros</span> <span class="dt">Prelude.Integer</span> <span class="kw">where</span> value _ <span class="fu">=</span> <span class="dv">0</span>
-<span class="kw">instance</span> <span class="dt">Value</span> <span class="dt">Ones</span> <span class="dt">Prelude.Integer</span> <span class="kw">where</span> value _ <span class="fu">=</span> <span class="fu">-</span><span class="dv">1</span>
-<span class="kw">instance</span> (<span class="dt">Value</span> i <span class="dt">Prelude.Integer</span>) <span class="ot">=&gt;</span> <span class="dt">Value</span> (<span class="dt">One</span> i) <span class="dt">Prelude.Integer</span>
-    <span class="kw">where</span> value _ <span class="fu">=</span> shift (value (<span class="dt">T</span><span class="ot">::</span><span class="dt">T</span> i)) <span class="dv">1</span> <span class="fu">Prelude.+</span> <span class="dv">1</span>
-<span class="kw">instance</span> (<span class="dt">Value</span> i <span class="dt">Prelude.Integer</span>) <span class="ot">=&gt;</span> <span class="dt">Value</span> (<span class="dt">Zero</span> i) <span class="dt">Prelude.Integer</span>
-    <span class="kw">where</span> value _ <span class="fu">=</span> shift (value (<span class="dt">T</span><span class="ot">::</span><span class="dt">T</span> i)) <span class="dv">1</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">instance</span> <span class="dt">Value</span> <span class="dt">Zeros</span> <span class="dt">Prelude.Integer</span> <span class="kw">where</span> value _ <span class="fu">=</span> <span class="dv">0</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw">instance</span> <span class="dt">Value</span> <span class="dt">Ones</span> <span class="dt">Prelude.Integer</span> <span class="kw">where</span> value _ <span class="fu">=</span> <span class="fu">-</span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="kw">instance</span> (<span class="dt">Value</span> i <span class="dt">Prelude.Integer</span>) <span class="ot">=&gt;</span> <span class="dt">Value</span> (<span class="dt">One</span> i) <span class="dt">Prelude.Integer</span></a>
+<a class="sourceLine" id="cb6-4" data-line-number="4">    <span class="kw">where</span> value _ <span class="fu">=</span> shift (value (<span class="dt">T</span><span class="ot">::</span><span class="dt">T</span> i)) <span class="dv">1</span> <span class="fu">Prelude.+</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="kw">instance</span> (<span class="dt">Value</span> i <span class="dt">Prelude.Integer</span>) <span class="ot">=&gt;</span> <span class="dt">Value</span> (<span class="dt">Zero</span> i) <span class="dt">Prelude.Integer</span></a>
+<a class="sourceLine" id="cb6-6" data-line-number="6">    <span class="kw">where</span> value _ <span class="fu">=</span> shift (value (<span class="dt">T</span><span class="ot">::</span><span class="dt">T</span> i)) <span class="dv">1</span></a></code></pre></div>
 <p>The <code>T::T</code> idiom is very common in code that uses <code>Prelude.Type</code>. It is made even more useful when using the <code>Show</code> instance for <code>T</code>.</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> (<span class="dt">Value</span> a t, <span class="dt">Prelude.Show</span> t) <span class="ot">=&gt;</span> <span class="dt">Prelude.Show</span> (<span class="dt">T</span> a) <span class="kw">where</span>
-   show _ <span class="fu">=</span> Prelude.show (value (<span class="dt">T</span><span class="ot">::</span><span class="dt">T</span> a))</code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">instance</span> (<span class="dt">Value</span> a t, <span class="dt">Prelude.Show</span> t) <span class="ot">=&gt;</span> <span class="dt">Prelude.Show</span> (<span class="dt">T</span> a) <span class="kw">where</span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">   show _ <span class="fu">=</span> Prelude.show (value (<span class="dt">T</span><span class="ot">::</span><span class="dt">T</span> a))</a></code></pre></div>
 <p>It allows easy type-level programming in ghci.</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">Prelude.Type</span><span class="fu">&gt;</span> <span class="dt">T</span><span class="ot">::</span><span class="dt">T</span> (<span class="dt">One</span> (<span class="dt">Zero</span> <span class="dt">Ones</span>))
-<span class="fu">-</span><span class="dv">3</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="dt">Prelude.Type</span><span class="fu">&gt;</span> <span class="dt">T</span><span class="ot">::</span><span class="dt">T</span> (<span class="dt">One</span> (<span class="dt">Zero</span> <span class="dt">Ones</span>))</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="fu">-</span><span class="dv">3</span></a></code></pre></div>
 <h2 id="lists">Lists</h2>
 <p>The list type has two well known constructors which GHC promotes into types. To avoid confusion, the cons and nil types need to be prefixed with a single quote.</p>
 <p>Converting list functions into type-level functions is often very straightforward. For example, the last function can be written like this.</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> family <span class="dt">Last</span> (<span class="ot">a ::</span> [k])<span class="ot"> ::</span> k
-<span class="kw">type</span> <span class="kw">instance</span> <span class="dt">Last</span> <span class="ch">'[] = Error &quot;Last_: empty list&quot;</span>
-<span class="kw">type</span> <span class="kw">instance</span> <span class="dt">Last</span> (x <span class="ch">': y '</span><span class="fu">:</span> xs) <span class="fu">=</span> <span class="dt">Last</span> (y <span class="ch">': xs)</span>
-<span class="kw">type</span> <span class="kw">instance</span> <span class="dt">Last</span> (x <span class="ch">': '</span>[]) <span class="fu">=</span> x</code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">type</span> family <span class="dt">Last</span> (<span class="ot">a ::</span> [k])<span class="ot"> ::</span> k</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw">type</span> <span class="kw">instance</span> <span class="dt">Last</span> '[] <span class="fu">=</span> <span class="dt">Error</span> <span class="st">&quot;Last_: empty list&quot;</span></a>
+<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="kw">type</span> <span class="kw">instance</span> <span class="dt">Last</span> (x '<span class="fu">:</span> y '<span class="fu">:</span> xs) <span class="fu">=</span> <span class="dt">Last</span> (y '<span class="fu">:</span> xs)</a>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="kw">type</span> <span class="kw">instance</span> <span class="dt">Last</span> (x '<span class="fu">:</span> '[]) <span class="fu">=</span> x</a></code></pre></div>
 <p>And it works:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">Prelude.Type.Families</span><span class="fu">&gt;</span> <span class="dt">T</span><span class="ot">::</span><span class="dt">T</span> (<span class="dt">Last</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>])
-<span class="dv">3</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="dt">Prelude.Type.Families</span><span class="fu">&gt;</span> <span class="dt">T</span><span class="ot">::</span><span class="dt">T</span> (<span class="dt">Last</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>])</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="dv">3</span></a></code></pre></div>
 <h2 id="type-families-vs-type-classes">Type Families vs Type Classes</h2>
 <p>The <code>Last</code> function can also be implemented as a type class.</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">class</span> <span class="dt">Last</span> (<span class="ot">l ::</span> [a]) (<span class="ot">x ::</span> a) <span class="fu">|</span> l <span class="ot">-&gt;</span> x
-<span class="kw">instance</span> <span class="dt">Error</span> <span class="st">&quot;Last: empty list&quot;</span> <span class="ot">=&gt;</span> <span class="dt">Last</span> <span class="ch">'[] a</span>
-<span class="kw">instance</span> a <span class="fu">~</span> b <span class="ot">=&gt;</span> <span class="dt">Last</span> <span class="ch">'[a] b</span>
-<span class="kw">instance</span> <span class="dt">Last</span> (y <span class="ch">': xs) a =&gt; Last (x '</span><span class="fu">:</span> y <span class="ch">': xs) a</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">class</span> <span class="dt">Last</span> (<span class="ot">l ::</span> [a]) (<span class="ot">x ::</span> a) <span class="fu">|</span> l <span class="ot">-&gt;</span> x</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="kw">instance</span> <span class="dt">Error</span> <span class="st">&quot;Last: empty list&quot;</span> <span class="ot">=&gt;</span> <span class="dt">Last</span> '[] a</a>
+<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="kw">instance</span> a <span class="fu">~</span> b <span class="ot">=&gt;</span> <span class="dt">Last</span> '[a] b</a>
+<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="kw">instance</span> <span class="dt">Last</span> (y '<span class="fu">:</span> xs) a <span class="ot">=&gt;</span> <span class="dt">Last</span> (x '<span class="fu">:</span> y '<span class="fu">:</span> xs) a</a></code></pre></div>
 <p>But classes need to be used differently.</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">Prelude.Type</span><span class="fu">&gt;</span> <span class="dt">T</span><span class="ot"> ::</span> <span class="dt">Last</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>] a <span class="ot">=&gt;</span> <span class="dt">T</span> a
-<span class="dv">3</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="dt">Prelude.Type</span><span class="fu">&gt;</span> <span class="dt">T</span><span class="ot"> ::</span> <span class="dt">Last</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>] a <span class="ot">=&gt;</span> <span class="dt">T</span> a</a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="dv">3</span></a></code></pre></div>
 <p>Thanks to Constraint kinds, we can add a Value instance for simple constraints.</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> (c a, <span class="dt">Value</span> a t) <span class="ot">=&gt;</span> <span class="dt">Value</span> (<span class="ot">c ::</span> k <span class="ot">-&gt;</span> <span class="dt">Constraint</span>) t
-  <span class="kw">where</span> value _ <span class="fu">=</span> value (<span class="dt">T</span><span class="ot">::</span><span class="dt">T</span> a)</code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">instance</span> (c a, <span class="dt">Value</span> a t) <span class="ot">=&gt;</span> <span class="dt">Value</span> (<span class="ot">c ::</span> k <span class="ot">-&gt;</span> <span class="dt">Constraint</span>) t</a>
+<a class="sourceLine" id="cb13-2" data-line-number="2">  <span class="kw">where</span> value _ <span class="fu">=</span> value (<span class="dt">T</span><span class="ot">::</span><span class="dt">T</span> a)</a></code></pre></div>
 <p>Now we can use the <code>Last</code> class in the exact same way we used the <code>Last</code> type family.</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">Prelude.Type</span><span class="fu">&gt;</span> <span class="dt">T</span><span class="ot">::</span><span class="dt">T</span> (<span class="dt">Last</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>])
-<span class="dv">3</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="dt">Prelude.Type</span><span class="fu">&gt;</span> <span class="dt">T</span><span class="ot">::</span><span class="dt">T</span> (<span class="dt">Last</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>])</a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="dv">3</span></a></code></pre></div>
 <p>Code written using type families often looks nicer, so why use type classes and functional dependencies? Because we can not (yet?) partially apply type families. However type classes do not mind being partially applied. We can easily write higher order type classes such as <code>FoldR</code>.</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">class</span> <span class="dt">FoldR</span> (<span class="ot">f ::</span> a <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> <span class="dt">Constraint</span>)
-    (<span class="ot">nil ::</span> b) (<span class="ot">list ::</span> [a]) (<span class="ot">ret ::</span> b) <span class="fu">|</span> f nil list <span class="ot">-&gt;</span> ret
-<span class="kw">instance</span> <span class="dt">Id</span> nil ret <span class="ot">=&gt;</span> <span class="dt">FoldR</span> f nil <span class="ch">'[] ret</span>
-<span class="kw">instance</span> (<span class="dt">FoldR</span> f nil xs tail, f x tail ret)
-    <span class="ot">=&gt;</span> <span class="dt">FoldR</span> f nil (x <span class="ch">': xs) ret</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw">class</span> <span class="dt">FoldR</span> (<span class="ot">f ::</span> a <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> <span class="dt">Constraint</span>)</a>
+<a class="sourceLine" id="cb15-2" data-line-number="2">    (<span class="ot">nil ::</span> b) (<span class="ot">list ::</span> [a]) (<span class="ot">ret ::</span> b) <span class="fu">|</span> f nil list <span class="ot">-&gt;</span> ret</a>
+<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="kw">instance</span> <span class="dt">Id</span> nil ret <span class="ot">=&gt;</span> <span class="dt">FoldR</span> f nil '[] ret</a>
+<a class="sourceLine" id="cb15-4" data-line-number="4"><span class="kw">instance</span> (<span class="dt">FoldR</span> f nil xs tail, f x tail ret)</a>
+<a class="sourceLine" id="cb15-5" data-line-number="5">    <span class="ot">=&gt;</span> <span class="dt">FoldR</span> f nil (x '<span class="fu">:</span> xs) ret</a></code></pre></div>
 <p><code>FoldR</code> can be used to implement <code>Or</code>.</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Or</span> <span class="fu">=</span> <span class="dt">FoldR</span> (<span class="fu">||</span>) <span class="ch">'[]</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw">type</span> <span class="dt">Or</span> <span class="fu">=</span> <span class="dt">FoldR</span> (<span class="fu">||</span>) '[]</a></code></pre></div>
 <p><code>Or</code> can be used to implement <code>Any</code>.</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Any</span> <span class="fu">=</span> (<span class="dt">Compose1</span> <span class="dt">Or</span>) <span class="ot">`Compose2`</span> <span class="dt">Partial1</span> <span class="dt">Map</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw">type</span> <span class="dt">Any</span> <span class="fu">=</span> (<span class="dt">Compose1</span> <span class="dt">Or</span>) <span class="ot">`Compose2`</span> <span class="dt">Partial1</span> <span class="dt">Map</span></a></code></pre></div>
 <p>Partial application of type classes does not work exactly the same way as in regular Haskell, which is why the <code>Compose</code> class (corresponding to (.)) has many variants. Each variant has a different arity. But it still works.</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">Prelude.Type</span><span class="fu">&gt;</span> <span class="dt">T</span><span class="ot">::</span><span class="dt">T</span> (<span class="dt">Any</span> ((<span class="fu">==</span>) <span class="dv">1</span>) <span class="ch">'[3,2,1])</span>
-<span class="dt">True</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="dt">Prelude.Type</span><span class="fu">&gt;</span> <span class="dt">T</span><span class="ot">::</span><span class="dt">T</span> (<span class="dt">Any</span> ((<span class="fu">==</span>) <span class="dv">1</span>) '[<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>])</a>
+<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="dt">True</span></a></code></pre></div>
 <h2 id="if-and-case">If and Case</h2>
 <p>To make type-level programming easier, <code>Prelude.Type</code> also provides <code>If</code> and <code>Case</code> classes. For example, <code>Case</code> is used to implement <code>Ord</code>.</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">class</span> <span class="dt">Compare</span> (<span class="ot">a ::</span> k) (<span class="ot">b ::</span> k) (<span class="ot">o ::</span> <span class="dt">Ordering</span>) <span class="fu">|</span> a b <span class="ot">-&gt;</span> o
-
-<span class="kw">class</span> ((<span class="ot">a ::</span> k) <span class="fu">&lt;</span> (<span class="ot">b ::</span> k)) (<span class="ot">p ::</span> <span class="dt">Bool</span>) <span class="fu">|</span> a b <span class="ot">-&gt;</span> p
-<span class="kw">instance</span> (<span class="dt">Compare</span> a b o,
-          <span class="dt">Case</span> o [<span class="dt">LT</span> <span class="fu">--&gt;</span> <span class="dt">True</span> <span class="fu">~</span> p,
-                  <span class="dt">Otherwise</span> (<span class="dt">False</span> <span class="fu">~</span> p)])
-         <span class="ot">=&gt;</span> (a <span class="fu">&lt;</span> b) p</code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw">class</span> <span class="dt">Compare</span> (<span class="ot">a ::</span> k) (<span class="ot">b ::</span> k) (<span class="ot">o ::</span> <span class="dt">Ordering</span>) <span class="fu">|</span> a b <span class="ot">-&gt;</span> o</a>
+<a class="sourceLine" id="cb19-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb19-3" data-line-number="3"><span class="kw">class</span> ((<span class="ot">a ::</span> k) <span class="fu">&lt;</span> (<span class="ot">b ::</span> k)) (<span class="ot">p ::</span> <span class="dt">Bool</span>) <span class="fu">|</span> a b <span class="ot">-&gt;</span> p</a>
+<a class="sourceLine" id="cb19-4" data-line-number="4"><span class="kw">instance</span> (<span class="dt">Compare</span> a b o,</a>
+<a class="sourceLine" id="cb19-5" data-line-number="5">          <span class="dt">Case</span> o [<span class="dt">LT</span> <span class="fu">--&gt;</span> <span class="dt">True</span> <span class="fu">~</span> p,</a>
+<a class="sourceLine" id="cb19-6" data-line-number="6">                  <span class="dt">Otherwise</span> (<span class="dt">False</span> <span class="fu">~</span> p)])</a>
+<a class="sourceLine" id="cb19-7" data-line-number="7">         <span class="ot">=&gt;</span> (a <span class="fu">&lt;</span> b) p</a></code></pre></div>
 <p>And If is used to implement <code>Enum</code> for <code>Integer</code>s.</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">If</span> (b <span class="fu">&lt;</span> a) (l <span class="fu">~</span> <span class="ch">'[])</span>
-            (((<span class="dt">I</span> <span class="dv">1</span>) <span class="fu">+</span> a) c, <span class="dt">EnumFromTo</span> c b k, l <span class="fu">~</span> (a <span class="ch">': k))</span>
-         <span class="ot">=&gt;</span> <span class="dt">EnumFromTo</span> (<span class="ot">a ::</span> <span class="dt">Integer</span>) b l</code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="kw">instance</span> <span class="dt">If</span> (b <span class="fu">&lt;</span> a) (l <span class="fu">~</span> '[])</a>
+<a class="sourceLine" id="cb20-2" data-line-number="2">            (((<span class="dt">I</span> <span class="dv">1</span>) <span class="fu">+</span> a) c, <span class="dt">EnumFromTo</span> c b k, l <span class="fu">~</span> (a '<span class="fu">:</span> k))</a>
+<a class="sourceLine" id="cb20-3" data-line-number="3">         <span class="ot">=&gt;</span> <span class="dt">EnumFromTo</span> (<span class="ot">a ::</span> <span class="dt">Integer</span>) b l</a></code></pre></div>
 <h2 id="extras">Extras</h2>
 <p><code>Prelude.Type</code> contains a port of most of the functions from the Prelude that operate on <code>Bool</code>, <code>Integer</code>, lists and functions.</p>
 <p>For fun, it also provides the <code>Main</code> type alias for writing executables entirely on the type level.</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">{-# LANGUAGE DataKinds, FlexibleInstances, MultiParamTypeClasses,</span>
-<span class="co">    FlexibleContexts, UndecidableInstances, KindSignatures #-}</span>
-
-<span class="kw">module</span> <span class="dt">Main</span> (main) <span class="kw">where</span>
-
-<span class="kw">import </span><span class="dt">Prelude.Type</span>
-
-<span class="kw">instance</span> <span class="dt">Gcd</span> (<span class="dt">I</span> <span class="dv">12</span>) (<span class="dt">I</span> <span class="dv">10</span>) a
-        <span class="ot">=&gt;</span> <span class="dt">Main</span> a</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="ex">ghc</span> Main.hs
-$ <span class="ex">./Main.hs</span>
-<span class="ex">2</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="ot">{-# LANGUAGE DataKinds, FlexibleInstances, MultiParamTypeClasses,</span></a>
+<a class="sourceLine" id="cb21-2" data-line-number="2"><span class="ot">    FlexibleContexts, UndecidableInstances, KindSignatures #-}</span></a>
+<a class="sourceLine" id="cb21-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb21-4" data-line-number="4"><span class="kw">module</span> <span class="dt">Main</span> (main) <span class="kw">where</span></a>
+<a class="sourceLine" id="cb21-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb21-6" data-line-number="6"><span class="kw">import</span> <span class="dt">Prelude.Type</span></a>
+<a class="sourceLine" id="cb21-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb21-8" data-line-number="8"><span class="kw">instance</span> <span class="dt">Gcd</span> (<span class="dt">I</span> <span class="dv">12</span>) (<span class="dt">I</span> <span class="dv">10</span>) a</a>
+<a class="sourceLine" id="cb21-9" data-line-number="9">        <span class="ot">=&gt;</span> <span class="dt">Main</span> a</a></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb22-1" data-line-number="1">$ <span class="ex">ghc</span> Main.hs</a>
+<a class="sourceLine" id="cb22-2" data-line-number="2">$ <span class="ex">./Main.hs</span></a>
+<a class="sourceLine" id="cb22-3" data-line-number="3"><span class="ex">2</span></a></code></pre></div>
 
         </div>
         <div id="footer">
-          © 2010-2017 Etienne Laurin
+          © 2010-2019 Etienne Laurin
         </div>
     </body>
 <script>

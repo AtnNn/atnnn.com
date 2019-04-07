@@ -29,36 +29,36 @@
 
 <p>Sometimes you have a pointer to a class, and you want to invoke a method. You can use the <code>-&gt;</code> operator for that.</p>
 <p>So what do you do when you have a pointer to a method, and want to invoke it on a class? Use the <code>&lt;-</code> operator!</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span>
- 
-<span class="kw">template</span>&lt;<span class="kw">class</span> T&gt;
-<span class="kw">struct</span> larrow {
-    larrow(T* <span class="va">a_</span>) : a(<span class="va">a_</span>) { }
-    T* a;
-};
- 
-<span class="kw">template</span> &lt;<span class="kw">class</span> T, <span class="kw">class</span> R&gt;
-R <span class="kw">operator</span>&lt;(R (T::* f)(), larrow&lt;T&gt; it) {
-    <span class="cf">return</span> (it.a-&gt;*f)();
-}
- 
-<span class="kw">template</span>&lt;<span class="kw">class</span> T&gt;
-larrow&lt;T&gt; <span class="kw">operator</span>-(T&amp; a) {
-    <span class="cf">return</span> larrow&lt;T&gt;(&amp;a);
-}
- 
-<span class="kw">struct</span> C {
-    <span class="dt">void</span> f() { <span class="bu">std::</span>cout &lt;&lt; <span class="st">&quot;foo</span><span class="sc">\n</span><span class="st">&quot;</span>; }    
-};
- 
-<span class="dt">int</span> main() {
-    C x;
-    (&amp;C::f)&lt;-x;
-}</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"> </a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">template</span>&lt;<span class="kw">class</span> T&gt;</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">struct</span> larrow {</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">    larrow(T* <span class="va">a_</span>) : a(<span class="va">a_</span>) { }</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">    T* a;</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7">};</a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"> </a>
+<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="kw">template</span> &lt;<span class="kw">class</span> T, <span class="kw">class</span> R&gt;</a>
+<a class="sourceLine" id="cb1-10" data-line-number="10">R <span class="kw">operator</span>&lt;(R (T::* f)(), larrow&lt;T&gt; it) {</a>
+<a class="sourceLine" id="cb1-11" data-line-number="11">    <span class="cf">return</span> (it.a-&gt;*f)();</a>
+<a class="sourceLine" id="cb1-12" data-line-number="12">}</a>
+<a class="sourceLine" id="cb1-13" data-line-number="13"> </a>
+<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="kw">template</span>&lt;<span class="kw">class</span> T&gt;</a>
+<a class="sourceLine" id="cb1-15" data-line-number="15">larrow&lt;T&gt; <span class="kw">operator</span>-(T&amp; a) {</a>
+<a class="sourceLine" id="cb1-16" data-line-number="16">    <span class="cf">return</span> larrow&lt;T&gt;(&amp;a);</a>
+<a class="sourceLine" id="cb1-17" data-line-number="17">}</a>
+<a class="sourceLine" id="cb1-18" data-line-number="18"> </a>
+<a class="sourceLine" id="cb1-19" data-line-number="19"><span class="kw">struct</span> C {</a>
+<a class="sourceLine" id="cb1-20" data-line-number="20">    <span class="dt">void</span> f() { <span class="bu">std::</span>cout &lt;&lt; <span class="st">&quot;foo</span><span class="sc">\n</span><span class="st">&quot;</span>; }    </a>
+<a class="sourceLine" id="cb1-21" data-line-number="21">};</a>
+<a class="sourceLine" id="cb1-22" data-line-number="22"> </a>
+<a class="sourceLine" id="cb1-23" data-line-number="23"><span class="dt">int</span> main() {</a>
+<a class="sourceLine" id="cb1-24" data-line-number="24">    C x;</a>
+<a class="sourceLine" id="cb1-25" data-line-number="25">    (&amp;C::f)&lt;-x;</a>
+<a class="sourceLine" id="cb1-26" data-line-number="26">}</a></code></pre></div>
 
         </div>
         <div id="footer">
-          © 2010-2017 Etienne Laurin
+          © 2010-2019 Etienne Laurin
         </div>
     </body>
 <script>

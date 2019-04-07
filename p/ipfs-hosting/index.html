@@ -28,7 +28,7 @@
 </div>
 
 <p>This page is available over HTTP at <a href="http://atnnn.com/p/ipfs-hosting">http://atnnn.com</a> but also over IPFS at <a href="http://ipfs.io/ipns/atnnn.com/p/ipfs-hosting">/ipns/atnnn.com</a>. Here’s how I do it:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">ipfs</span> name publish <span class="kw">`</span><span class="ex">ipfs</span> add -rq ~/atnnn.com/_site <span class="kw">|</span> <span class="fu">tail</span> -n 1<span class="kw">`</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="ex">ipfs</span> name publish <span class="kw">`</span><span class="ex">ipfs</span> add -rq ~/atnnn.com/_site <span class="kw">|</span> <span class="fu">tail</span> -n 1<span class="kw">`</span></a></code></pre></div>
 <p>The rest of this article goes into more details and explains why you might want to do it too.</p>
 <p>I discovered <a href="http://ipfs.io">IPFS</a> when I saw <a href="https://www.youtube.com/watch?v=8CMxDNuuAiQ">this amazing demo</a> on <a href="https://news.ycombinator.com/item?id=9083849">Hacker News</a> last year. I’ve been using it regularly ever since, and I even <a href="https://github.com/ipfs/go-ipfs/commits?author=AtnNn">fixed a few annoyances</a> that I found.</p>
 <h2 id="a-quick-overview-of-ipfs">A quick overview of IPFS</h2>
@@ -47,37 +47,37 @@
 <p>The <a href="https://github.com/ipfs/specs">the IPFS spec</a> has more details on how all these concepts work together.</p>
 <h2 id="installing-ipfs">Installing IPFS</h2>
 <p>You can follow the <a href="https://ipfs.io/docs/install/">official instructions</a> to install IPFS on your computer. If you are running a 64-bit Linux, you can follow along with me. I start by downloading and extracting IPFS:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="fu">wget</span> https://dist.ipfs.io/go-ipfs/v0.4.3-rc1/go-ipfs_v0.4.3-rc1_linux-amd64.tar.gz
-$ <span class="fu">tar</span> xf go-ipfs_v0.4.3-rc1_linux-amd64.tar.gz</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb2-1" data-line-number="1">$ <span class="fu">wget</span> https://dist.ipfs.io/go-ipfs/v0.4.3-rc1/go-ipfs_v0.4.3-rc1_linux-amd64.tar.gz</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">$ <span class="fu">tar</span> xf go-ipfs_v0.4.3-rc1_linux-amd64.tar.gz</a></code></pre></div>
 <p>Then I install the <code>ipfs</code> binary to my <code>PATH</code> and initialize the IPFS repo:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="fu">mv</span> go-ipfs/ipfs /usr/local/bin/ipfs
-$ <span class="ex">ipfs</span> init
-<span class="ex">initializing</span> ipfs node at /home/atnnn/.ipfs
-<span class="ex">generating</span> 2048-bit RSA keypair...done
-<span class="ex">peer</span> identity: QmSg4AzfWd6YHrDyZp2w7FqTeP6fAQcb6X5wQ8KoVYYvaP</code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb3-1" data-line-number="1">$ <span class="fu">mv</span> go-ipfs/ipfs /usr/local/bin/ipfs</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">$ <span class="ex">ipfs</span> init</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="ex">initializing</span> ipfs node at /home/atnnn/.ipfs</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="ex">generating</span> 2048-bit RSA keypair...done</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="ex">peer</span> identity: QmSg4AzfWd6YHrDyZp2w7FqTeP6fAQcb6X5wQ8KoVYYvaP</a></code></pre></div>
 <p>I start the IPFS daemon to connect to the swarm:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="ex">ipfs</span> daemon
-<span class="ex">Initializing</span> daemon...
-<span class="ex">Swarm</span> listening on /ip4/127.0.0.1/tcp/4001
-<span class="ex">Swarm</span> listening on /ip4/172.17.0.1/tcp/4001
-<span class="ex">Swarm</span> listening on /ip4/69.132.122.247/tcp/4001
-<span class="ex">Swarm</span> listening on /ip6/::1/tcp/4001
-<span class="ex">API</span> server listening on /ip4/127.0.0.1/tcp/5001
-<span class="ex">Gateway</span> (readonly) <span class="ex">server</span> listening on /ip4/127.0.0.1/tcp/8080
-<span class="ex">Daemon</span> is ready</code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb4-1" data-line-number="1">$ <span class="ex">ipfs</span> daemon</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="ex">Initializing</span> daemon...</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="ex">Swarm</span> listening on /ip4/127.0.0.1/tcp/4001</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="ex">Swarm</span> listening on /ip4/172.17.0.1/tcp/4001</a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="ex">Swarm</span> listening on /ip4/69.132.122.247/tcp/4001</a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="ex">Swarm</span> listening on /ip6/::1/tcp/4001</a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="ex">API</span> server listening on /ip4/127.0.0.1/tcp/5001</a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="ex">Gateway</span> (readonly) <span class="ex">server</span> listening on /ip4/127.0.0.1/tcp/8080</a>
+<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="ex">Daemon</span> is ready</a></code></pre></div>
 <p>I let the daemon run in the background.</p>
 <h2 id="adding-my-website-to-ipfs">Adding my website to IPFS</h2>
 <p>I store my website in my local <code>atnnn.com/_site</code> folder. The whole process of uploading it is automated in a <a href="https://github.com/AtnNn/atnnn.com/blob/master/Makefile#L23-L25"><code>Makefile</code></a>. Let me take you through it step by step.</p>
 <p>But first, here’s how you might download a local copy of your website. Replace <code>www.atnnn.com</code> with your own website:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="va">SITE=</span>www.atnnn.com
-$ <span class="fu">wget</span> --mirror --convert-links --page-requisites http://<span class="va">$SITE</span>
-<span class="ex">Total</span> wall clock time: 2.7s
-<span class="ex">Downloaded</span>: 40 files, 2.4M in 0.5s (4.69 MB/s)
-<span class="ex">Converted</span> links in 20 files in 0.003 seconds.</code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb5-1" data-line-number="1">$ <span class="va">SITE=</span>www.atnnn.com</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">$ <span class="fu">wget</span> --mirror --convert-links --page-requisites http://<span class="va">$SITE</span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="ex">Total</span> wall clock time: 2.7s</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="ex">Downloaded</span>: 40 files, 2.4M in 0.5s (4.69 MB/s)</a>
+<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="ex">Converted</span> links in 20 files in 0.003 seconds.</a></code></pre></div>
 <p>It’s important to use relative links and to include all assets such as images, styles and fonts. <code>wget</code> will try to do that if you tell it to <code>--convert-links</code> and to download <code>--page-requisites</code> but it isn’t perfect.</p>
 <p>After building a local copy of my website, I can add it to IPFS:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="ex">ipfs</span> add -r <span class="va">$SITE</span>
-<span class="ex">added</span> QmcgHMhAzAqZpQUnarDhqA8XhAbYuHuixkUH2r5T8S9YtP atnnn.com/_site</code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb6-1" data-line-number="1">$ <span class="ex">ipfs</span> add -r <span class="va">$SITE</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="ex">added</span> QmcgHMhAzAqZpQUnarDhqA8XhAbYuHuixkUH2r5T8S9YtP atnnn.com/_site</a></code></pre></div>
 <p>My website is now available via IPFS at:</p>
 <p><a href="https://ipfs.io/ipfs/QmcgHMhAzAqZpQUnarDhqA8XhAbYuHuixkUH2r5T8S9YtP/">/ipfs/QmcgHMhAzAqZpQUnarDhqA8XhAbYuHuixkUH2r5T8S9YtP/</a></p>
 <h2 id="linking-to-my-website-on-ipfs">Linking to my website on IPFS</h2>
@@ -89,40 +89,37 @@ $ <span class="fu">wget</span> --mirror --convert-links --page-requisites http:/
 <li><p>Visitors can automatically download the website from each other, reducing their load time and the load on my IPFS daemon.</p></li>
 </ul>
 <p>To make sure my website stays online, I am going to pin it on another machine. I have a Linode VPS that I use for that purpose, called <code>ipfs.atnnn</code>:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="fu">ssh</span> ipfs.atnnn
-<span class="ex">ipfs.atnnn</span>$ ipfs pin add QmcgHMhAzAqZpQUnarDhqA8XhAbYuHuixkUH2r5T8S9YtP
-<span class="ex">pinned</span> QmcgHMhAzAqZpQUnarDhqA8XhAbYuHuixkUH2r5T8S9YtP recursively</code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb7-1" data-line-number="1">$ <span class="fu">ssh</span> ipfs.atnnn</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="ex">ipfs.atnnn</span>$ ipfs pin add QmcgHMhAzAqZpQUnarDhqA8XhAbYuHuixkUH2r5T8S9YtP</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="ex">pinned</span> QmcgHMhAzAqZpQUnarDhqA8XhAbYuHuixkUH2r5T8S9YtP recursively</a></code></pre></div>
 <p>I can also use the id of my IPFS daemon as an updatable pointer to my website:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">ipfs.atnnn</span>$ ipfs name publish QmcgHMhAzAqZpQUnarDhqA8XhAbYuHuixkUH2r5T8S9YtP
-<span class="ex">Published</span> to QmbtTW3Lj5ad3UotQ7YzKx8bSSaXKirn2ggxxaZWV28z3D</code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="ex">ipfs.atnnn</span>$ ipfs name publish QmcgHMhAzAqZpQUnarDhqA8XhAbYuHuixkUH2r5T8S9YtP</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="ex">Published</span> to QmbtTW3Lj5ad3UotQ7YzKx8bSSaXKirn2ggxxaZWV28z3D</a></code></pre></div>
 <p>The hash starting with <code>QmbtTW3L</code> is the unique id of my IPFS daemon. My website can now be accessed using IPNS at that id:</p>
 <p><a href="https://ipfs.io/ipns/QmbtTW3Lj5ad3UotQ7YzKx8bSSaXKirn2ggxxaZWV28z3D">/ipns/QmbtTW3Lj5ad3UotQ7YzKx8bSSaXKirn2ggxxaZWV28z3D</a></p>
 <p>The id is also the hash of a public key and IPNS forbids anyone else from publishing to it. It provides me with a safe link that I can share and that will always point to the newest version of my website.</p>
 <p>But it is still long and cryptic. To fix that, IPNS lets me use a domain name as an alias for any IPFS or IPNS path. To do so, I added a <code>TXT</code> record to my domain with the special <code>dnslink=</code> setting. My DNS provider, ZoneEdit, lets me do this easily:</p>
-<div class="figure">
-<img src="../../images/dnslink.png" />
-
-</div>
+<p><img src="../../images/dnslink.png" /></p>
 <p>I can verify that the record is in place:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="ex">host</span> -t TXT atnnn.com
-<span class="ex">atnnn.com</span> descriptive text <span class="st">&quot;dnslink=/ipns/QmbtTW3Lj5ad3UotQ7YzKx8bSSaXKirn2ggxxaZWV28z3D&quot;</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb9-1" data-line-number="1">$ <span class="ex">host</span> -t TXT atnnn.com</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="ex">atnnn.com</span> descriptive text <span class="st">&quot;dnslink=/ipns/QmbtTW3Lj5ad3UotQ7YzKx8bSSaXKirn2ggxxaZWV28z3D&quot;</span></a></code></pre></div>
 <p>IPNS happily follows this record and I can share a new link to my website:</p>
 <p><a href="https://ipfs.io/ipns/atnnn.com/">/ipns/atnnn.com</a></p>
 <h2 id="the-ipfs-gateway">The IPFS gateway</h2>
 <p>The public <code>http://ipfs.io</code> HTTP gateway is the easiest way to share IPFS and IPNS links with people who do not have IPFS installed.</p>
 <p>If you have IPFS installed, you can access these links directly through IPFS by using a browser plugin, such as <a href="https://addons.mozilla.org/en-US/firefox/addon/ipfs-gateway-redirect/">this one for Firefox</a> or <a href="https://chrome.google.com/webstore/detail/ipfs-station/kckhgoigikkadogfdiojcblegfhdnjei">this one for Chrome</a>.</p>
 <p>Another alternative is to host an IPFS gateway yourself. You can restrict which IPFS websites can be accessed using a reverse proxy such as Nginx. For example, I might use this Nginx configuration:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">location / <span class="op">{</span>
-  rewrite /(.<span class="op">*</span>) /ipns/<span class="va">atnnn</span>.<span class="at">com</span>/$1 <span class="cf">break</span><span class="op">;</span>
-  proxy_pass <span class="dt">http</span><span class="op">:</span><span class="co">//127.0.0.1:8080;</span>
-<span class="op">}</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode javascript"><code class="sourceCode javascript"><a class="sourceLine" id="cb10-1" data-line-number="1">location / <span class="op">{</span></a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">  rewrite /(.<span class="op">*</span>) /ipns/<span class="va">atnnn</span>.<span class="at">com</span>/$1 <span class="cf">break</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb10-3" data-line-number="3">  proxy_pass <span class="dt">http</span><span class="op">:</span><span class="co">//127.0.0.1:8080;</span></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="op">}</span></a></code></pre></div>
 <h2 id="enjoy-ipfs">Enjoy IPFS</h2>
 <p>Now my website is available over IPFS, just like many others such as <a href="https://neocities.org/permanent-web">neocities.org</a> and <a href="https://ipfs.pics/">ipfs.pics</a>. But hosting websites is not the only thing IPFS can do. I’ve also used IPFS for other projects, as a replacement for Rsync when sharing build artifacts between servers and as a replacement for Bittorrent for sharing large files with friends.</p>
 <p>I don’t think IPFS will ever replace HTTP, but I’m certain it can keep improving the web for both users and developers.</p>
 
         </div>
         <div id="footer">
-          © 2010-2017 Etienne Laurin
+          © 2010-2019 Etienne Laurin
         </div>
     </body>
 <script>
