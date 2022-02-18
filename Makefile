@@ -2,8 +2,7 @@ SHELL := bash
 
 sitegit := cd _site && git
 build_mode := build
-site := cabal run
-# site := stack exec site
+site := runghc site.hs
 
 .PHONY: all
 all: _site
@@ -41,7 +40,6 @@ _site: $(wildcard about.rst css/* github/* index.html posts/* contact.markdown i
 	  $(sitegit) checkout --detach --quiet; \
 	else \
 	  $(sitegit) init; \
-	  pwd;pwd;pwd; \
 	  echo "../../.git/objects" > .git/objects/info/alternates; \
 	fi
 	$(sitegit) fetch .. +gh-pages:gh-pages
