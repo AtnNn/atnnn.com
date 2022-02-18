@@ -21,11 +21,6 @@ commit: _site
 publish-web:
 	git push --all
 
-publish-ipfs:
-	hash=`ipfs add -rq _site | tail -n 1` && \
-	  echo HASH: $$hash && \
-	  ssh circus.atnnn.com bash -c $$(printf "%q" ". code/ipfs/env; ipfs pin add $$hash && ipfs name publish $$hash")
-
 .PHONY: rebuild
 rebuild: build_mode = rebuild
 rebuild: _site
