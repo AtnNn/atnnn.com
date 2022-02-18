@@ -34,8 +34,8 @@
 <p>How is this useful? Take the <code>$-</code> operator for example.</p>
 <p><a href="http://www.atnnn.com/p/haskell-nameless-parameters/" class="uri">http://www.atnnn.com/p/haskell-nameless-parameters/</a></p>
 <p>It can now be written as</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb1-1" data-line-number="1">(<span class="fu">$-</span>) <span class="ot">∷</span> (d <span class="ot">→</span> a <span class="ot">→</span> e) <span class="ot">→</span> (e <span class="ot">→</span> k) <span class="ot">→</span> d <span class="ot">→</span> a <span class="ot">→</span> k</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">(<span class="fu">$-</span>) <span class="fu">=</span> combinator</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>(<span class="op">$-</span>) ∷ (d → a → e) → (e → k) → d → a → k</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>(<span class="op">$-</span>) <span class="ot">=</span> combinator</span></code></pre></div>
 <p>Haskell is magic!﻿</p>
 
         </div>

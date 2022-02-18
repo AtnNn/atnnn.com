@@ -50,26 +50,26 @@
 <li><p>The build toolchain is available in the <code>PATH</code></p></li>
 </ul>
 <p>This script will setup such an environment for us:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="va">CROSS=</span>~/pi-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="bu">export</span> <span class="va">CC=$CROSS</span>-gcc</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="bu">export</span> <span class="va">CXX=$CROSS</span>-g++</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="bu">export</span> <span class="va">LD=$CROSS</span>-ld</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="bu">export</span> <span class="va">AR=$CROSS</span>-ar</a>
-<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="bu">export</span> <span class="va">RANLIB=$CROSS</span>-ranlib</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">CROSS</span><span class="op">=</span>~/pi-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">CC</span><span class="op">=</span><span class="va">$CROSS</span>-gcc</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">CXX</span><span class="op">=</span><span class="va">$CROSS</span>-g++</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">LD</span><span class="op">=</span><span class="va">$CROSS</span>-ld</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">AR</span><span class="op">=</span><span class="va">$CROSS</span>-ar</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">RANLIB</span><span class="op">=</span><span class="va">$CROSS</span>-ranlib</span></code></pre></div>
 <p>We can pass the <code>-dumpmachine</code> argument to GCC to check the target architecture:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb3-1" data-line-number="1">$ <span class="fu">uname</span> -om</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="ex">x86_64</span> GNU/Linux</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">$ <span class="fu">gcc</span> -dumpmachine</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="ex">x86_64-linux-gnu</span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5">$ <span class="va">$CXX</span> <span class="ex">-dumpmachine</span></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="ex">arm-linux-gnueabihf</span></a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> uname <span class="at">-om</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">x86_64</span> GNU/Linux</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> gcc <span class="at">-dumpmachine</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ex">x86_64-linux-gnu</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> <span class="va">$CXX</span> <span class="at">-dumpmachine</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="ex">arm-linux-gnueabihf</span></span></code></pre></div>
 <h2 id="the-build">The build</h2>
 <p>We can now fetch and build RethinkDB for the Raspberry Pi.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="fu">git</span> clone -b v2.0.x https://github.com/rethinkdb/rethinkdb</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="bu">cd</span> rethinkdb</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="fu">rm</span> -rf external/v8*</a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="ex">./configure</span> --allow-fetch --with-system-malloc</a>
-<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="fu">make</span> -j <span class="kw">`</span><span class="ex">nproc</span><span class="kw">`</span></a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone <span class="at">-b</span> v2.0.x https://github.com/rethinkdb/rethinkdb</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> rethinkdb</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-rf</span> external/v8<span class="pp">*</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="ex">./configure</span> <span class="at">--allow-fetch</span> <span class="at">--with-system-malloc</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> <span class="at">-j</span> <span class="kw">`</span><span class="ex">nproc</span><span class="kw">`</span></span></code></pre></div>
 <ul>
 <li><p>Cross-compiling has been tested in the v2.0.x branch.</p></li>
 <li><p>The bundled version of v8 does not include a copy of the ICU library, which it requires for cross-compiling, so it has to be removed</p></li>
