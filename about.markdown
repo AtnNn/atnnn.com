@@ -14,3 +14,4 @@ I'm a software developer living in Mesa, AZ.
 * KGS: <https://www.gokgs.com/graphPage.jsp?user=choongmoo>
 * The Session: <https://thesession.org/members/62773/tunebook>
 * Twitch: <https://www.twitch.tv/choongmoo>
+* Tiktok: <https://www.tiktok.com/@sogled>

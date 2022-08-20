@@ -23,7 +23,7 @@ div#header {
     margin-top: 10px
 }
 
-div#logo a {
+div#logo {
     color: black;
     float: left;
     font-size: 18px;
@@ -128,25 +128,3 @@ pre {
 strong { font-weight: bold; }
 
 em { font-style: italic }
-
-@keyframes on-air-blink {
-  0% { color: black; }
-  20% { color: red; }
-  40% { color: black; }
-}
-@-webkit-keyframes on-air-blink {
-  0% { color: black; }
-  10% { color: red; }
-  20% { color: black; }
-}
-
-.stream-status.online .stream-online { display: inline; }
-.stream-status.online .stream-offline { display: none; }
-.stream-status .stream-online { display: none; }
-.stream-status .stream-offline { display: inline; }
-
-.stream-online {
-  -webkit-animation: on-air-blink 3s linear infinite;
-  -moz-animation: on-air-blink 3s linear infinite;
-  animation: on-air-blink 3s linear infinite;
-}

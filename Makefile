@@ -29,7 +29,7 @@ rebuild: _site
 watch: _site
 	$(site) watch
 
-_site: $(wildcard about.rst css/* github/* index.html posts/* contact.markdown images/* templates/*)
+_site: $(wildcard about.rst css/* github/* index.html 404.html posts/* contact.markdown images/* templates/*)
 	$(site) $(build_mode)
 	if [[ -e _site/.git ]]; then \
 	  $(sitegit) checkout --detach --quiet; \
