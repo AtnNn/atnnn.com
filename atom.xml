@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <title>AtnNn.com</title>
-    <link href="https://atnnn.com/atom.xml" rel="self" />
-    <link href="https://atnnn.com" />
-    <id>https://atnnn.com/atom.xml</id>
+    <link href="https://www.atnnn.com/atom.xml" rel="self" />
+    <link href="https://www.atnnn.com" />
+    <id>https://www.atnnn.com/atom.xml</id>
     <author>
         <name>Etienne Laurin</name>
         <email></email>
@@ -11,8 +11,8 @@
     <updated>2018-10-03T00:00:00Z</updated>
     <entry>
     <title>C++ bitand Nix</title>
-    <link href="https://atnnn.com/p/cpp-bitand-nix" />
-    <id>https://atnnn.com/p/cpp-bitand-nix</id>
+    <link href="https://www.atnnn.com/p/cpp-bitand-nix" />
+    <id>https://www.atnnn.com/p/cpp-bitand-nix</id>
     <published>2018-10-03T00:00:00Z</published>
     <updated>2018-10-03T00:00:00Z</updated>
     <summary type="html"><![CDATA[<div class="info">
@@ -27,8 +27,8 @@
 </entry>
 <entry>
     <title>Serving a website over IPFS</title>
-    <link href="https://atnnn.com/p/ipfs-hosting" />
-    <id>https://atnnn.com/p/ipfs-hosting</id>
+    <link href="https://www.atnnn.com/p/ipfs-hosting" />
+    <id>https://www.atnnn.com/p/ipfs-hosting</id>
     <published>2016-08-02T00:00:00Z</published>
     <updated>2016-08-02T00:00:00Z</updated>
     <summary type="html"><![CDATA[<div class="info">
@@ -129,8 +129,8 @@
 </entry>
 <entry>
     <title>C++ left arrow operator</title>
-    <link href="https://atnnn.com/p/operator-larrow" />
-    <id>https://atnnn.com/p/operator-larrow</id>
+    <link href="https://www.atnnn.com/p/operator-larrow" />
+    <id>https://www.atnnn.com/p/operator-larrow</id>
     <published>2016-07-29T00:00:00Z</published>
     <updated>2016-07-29T00:00:00Z</updated>
     <summary type="html"><![CDATA[<div class="info">
@@ -170,8 +170,8 @@
 </entry>
 <entry>
     <title>Demo: video streaming with RethinkDB</title>
-    <link href="https://atnnn.com/p/rethinkdb-stream" />
-    <id>https://atnnn.com/p/rethinkdb-stream</id>
+    <link href="https://www.atnnn.com/p/rethinkdb-stream" />
+    <id>https://www.atnnn.com/p/rethinkdb-stream</id>
     <published>2015-03-20T00:00:00Z</published>
     <updated>2015-03-20T00:00:00Z</updated>
     <summary type="html"><![CDATA[<div class="info">
@@ -185,8 +185,8 @@
 </entry>
 <entry>
     <title>Presentation on my RethinkDB driver for Haskell</title>
-    <link href="https://atnnn.com/p/haskell-rethinkdb-presentation" />
-    <id>https://atnnn.com/p/haskell-rethinkdb-presentation</id>
+    <link href="https://www.atnnn.com/p/haskell-rethinkdb-presentation" />
+    <id>https://www.atnnn.com/p/haskell-rethinkdb-presentation</id>
     <published>2015-03-07T00:00:00Z</published>
     <updated>2015-03-07T00:00:00Z</updated>
     <summary type="html"><![CDATA[<div class="info">
@@ -201,8 +201,8 @@
 </entry>
 <entry>
     <title>Cross compiling RethinkDB for ARM</title>
-    <link href="https://atnnn.com/p/cross-compile-rethinkdb" />
-    <id>https://atnnn.com/p/cross-compile-rethinkdb</id>
+    <link href="https://www.atnnn.com/p/cross-compile-rethinkdb" />
+    <id>https://www.atnnn.com/p/cross-compile-rethinkdb</id>
     <published>2015-03-06T00:00:00Z</published>
     <updated>2015-03-06T00:00:00Z</updated>
     <summary type="html"><![CDATA[<div class="info">
@@ -269,8 +269,8 @@ Running on Linux 3.18.7+ armv6l</code></pre>
 </entry>
 <entry>
     <title>Kobo Deluxe</title>
-    <link href="https://atnnn.com/p/kobo-deluxe" />
-    <id>https://atnnn.com/p/kobo-deluxe</id>
+    <link href="https://www.atnnn.com/p/kobo-deluxe" />
+    <id>https://www.atnnn.com/p/kobo-deluxe</id>
     <published>2013-09-06T00:00:00Z</published>
     <updated>2013-09-06T00:00:00Z</updated>
     <summary type="html"><![CDATA[<div class="info">
@@ -297,8 +297,8 @@ Running on Linux 3.18.7+ armv6l</code></pre>
 </entry>
 <entry>
     <title>Experimenting with Blender</title>
-    <link href="https://atnnn.com/p/experimenting-with-blender" />
-    <id>https://atnnn.com/p/experimenting-with-blender</id>
+    <link href="https://www.atnnn.com/p/experimenting-with-blender" />
+    <id>https://www.atnnn.com/p/experimenting-with-blender</id>
     <published>2012-10-16T00:00:00Z</published>
     <updated>2012-10-16T00:00:00Z</updated>
     <summary type="html"><![CDATA[<div class="info">
@@ -313,8 +313,8 @@ Running on Linux 3.18.7+ armv6l</code></pre>
 </entry>
 <entry>
     <title>type-prelude and GHC 7.6.1</title>
-    <link href="https://atnnn.com/p/type-prelude" />
-    <id>https://atnnn.com/p/type-prelude</id>
+    <link href="https://www.atnnn.com/p/type-prelude" />
+    <id>https://www.atnnn.com/p/type-prelude</id>
     <published>2012-09-06T00:00:00Z</published>
     <updated>2012-09-06T00:00:00Z</updated>
     <summary type="html"><![CDATA[<div class="info">
@@ -437,8 +437,8 @@ Running on Linux 3.18.7+ armv6l</code></pre>
 </entry>
 <entry>
     <title>Haxpuck</title>
-    <link href="https://atnnn.com/p/haxpuck" />
-    <id>https://atnnn.com/p/haxpuck</id>
+    <link href="https://www.atnnn.com/p/haxpuck" />
+    <id>https://www.atnnn.com/p/haxpuck</id>
     <published>2012-08-13T00:00:00Z</published>
     <updated>2012-08-13T00:00:00Z</updated>
     <summary type="html"><![CDATA[<div class="info">
