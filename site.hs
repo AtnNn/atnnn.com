@@ -116,6 +116,6 @@ feedConfiguration = FeedConfiguration
     , feedDescription = "Articles"
     , feedAuthorName  = "Etienne Laurin"
     , feedAuthorEmail = ""
-    , feedRoot        = "https://atnnn.com"
+    , feedRoot        = "https://www.atnnn.com"
     }
 
