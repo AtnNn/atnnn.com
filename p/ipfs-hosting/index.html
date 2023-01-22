@@ -25,7 +25,7 @@
     
 </div>
 
-<p>This page is available over HTTP at <a href="http://atnnn.com/p/ipfs-hosting">http://atnnn.com</a> but also over IPFS at <a href="http://ipfs.io/ipns/atnnn.com/p/ipfs-hosting">/ipns/atnnn.com</a>. Here’s how I do it:</p>
+<p>This page is available over HTTP at <a href="http://atnnn.com/p/ipfs-hosting">http://atnnn.com</a> but also over IPFS at <code>http://ipfs.io/ipns/atnnn.com/p/ipfs-hosting</code> (edit: not any more). Here’s how I <strike>do</strike> did it:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ipfs</span> name publish <span class="kw">`</span><span class="ex">ipfs</span> add <span class="at">-rq</span> ~/atnnn.com/_site <span class="kw">|</span> <span class="fu">tail</span> <span class="at">-n</span> 1<span class="kw">`</span></span></code></pre></div>
 <p>The rest of this article goes into more details and explains why you might want to do it too.</p>
 <p>I discovered <a href="http://ipfs.io">IPFS</a> when I saw <a href="https://www.youtube.com/watch?v=8CMxDNuuAiQ">this amazing demo</a> on <a href="https://news.ycombinator.com/item?id=9083849">Hacker News</a> last year. I’ve been using it regularly ever since, and I even <a href="https://github.com/ipfs/go-ipfs/commits?author=AtnNn">fixed a few annoyances</a> that I found.</p>
@@ -117,7 +117,7 @@
 
         </div>
         <div id="footer">
-          © 2010-2022 Etienne Laurin
+          © 2010-2023 Etienne Laurin
         </div>
     </body>
 <script>
