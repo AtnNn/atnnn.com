@@ -3,30 +3,30 @@
 
 body {
     color: #070303;
-    font-size: 16px;
+    font-size: 100%;
     margin: 0px auto 0px auto;
-    width: 640px;
+    max-width: 45em;
     font-family: dejavu-sans, sans-serif;
-    background: #f8fffc
+    background: #e0f0e4;
 }
 
 div#content {
-    background-color: #ffffff;
-    padding-left: 20px;
-    padding-right: 20px;
+    background-color: #f6fffa;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 
 div#header {
-    background-color: #ffffff;
+    background-color: #f6fffa;
     border-bottom: 2px solid black;
-    padding: 12px 20px 12px 20px;
-    margin-top: 10px
+    padding: 2ex 1.5em 2ex 1.5em;
+    margin-top: 0.5em;
 }
 
 div#logo {
     color: black;
     float: left;
-    font-size: 18px;
+    font-size: 1.2em;
     font-weight: bold;
     text-decoration: none;
 }
@@ -37,25 +37,31 @@ div#header #navigation {
 
 div#header #navigation a {
     color: black;
-    font-size: 12px;
+    font-size: 0.8em;
     font-weight: bold;
-    margin-left: 12px;
+    margin-left: 1em;
     text-decoration: none;
     text-transform: uppercase;
+    border: 1px solid transparent;
+    padding: 2px;
+}
+
+div#header #navigation a:hover {
+    border: 1px solid black;
 }
 
 div#footer {
-    background-color: #ffffff;
+    background-color: #f6fffa;
     border-top: solid 2px black;
     color: #555;
-    font-size: 12px;
-    padding: 12px 20px 12px 20px;
+    font-size: 0.6em;
+    padding: 2ex 1.5em 2ex 1.5em;
     text-align: right;
 }
 
 div#content {
-    padding-top: 30px;
-    padding-bottom: 30px;
+    padding-top: 2ex;
+    padding-bottom: 2ex;
 }
 
 div#content p {
@@ -69,18 +75,18 @@ div#content li p {
 h1, h2, h3, h4 { font-weight: bold }
 
 h1 {
-    font-size: 24px;
-    margin: 10px 0px;
+    font-size: 1.5em;
+    margin: 0.2em 0em;
 }
 
 h2 {
-    font-size: 20px;
-    margin: 20px 0px 10px 0px;
+    font-size: 1.2em;
+    margin: 1em 0em;
 }
 
 div.info {
     color: #555;
-    font-size: 14px;
+    font-size: 0.8em;
     font-style: italic;
 }
 
@@ -110,19 +116,19 @@ code.haskell { font-family: dejavu-sans, sans-serif }
 a { text-decoration: none }
 a:hover { text-decoration: underline }
 
-pre, p, ul { margin: 20px 0px;
+pre, p, ul { margin: 0.5em 0em;
          line-height: 1.3em }
 
 ul { list-style: square outside;
-     margin-left: 10px }
-li { margin: 10px 0; }
+     margin-left: 0.5em; }
+li { margin: 0.5em 0em; }
 li > p {  }
 
-img { max-width: 600px }
+img { max-width: 95%; }
 
 pre {
     overflow: auto;
-    font-size: 0.8em
+    font-size: 0.9em
 }
 
 strong { font-weight: bold; }
