@@ -1,0 +1,67 @@
+---
+title: C++ Without Macros
+date: 2019-10-04
+category: code
+---
+
+## Why Avoid Macros
+
+Macros pollute the global namespace, look deceptively like function
+calls, break static analysis and syntax highlighting, aren't typed,
+don't parse commas properly, make error messages and stack traces
+harder to read, aren't deterministic, have overcomplicated expansion
+rules, don't provide unique identifiers, are limited to a single line
+and don't expand to atomic expressions or statements that respect
+operator precedence or the need for a semicolon.
+
+Work-arounds for these limitations lead to ugly code which can, in most cases, better be expressed using other C++ constructs.
+
+## Attributes
+
+
+
+## Constants
+## C Idioms
+## Inline Functions
+## Templates
+## Counters
+## Constexpr
+## Source Location
+- std::source_location
+## Localisation
+## Debugging
+## Generating Names
+## Enum Helpers
+## Class Helpers
+- CRTP
+## Custom Blocks
+- my_catch
+- foreach
+## Metaprogramming
+- Boost PP
+## X Macros
+## Self Inclusion
+## Using Undeclared Types And Variables
+## Short-Circuiting
+## Header Guards
+## RTTI
+## Array Size
+## Offset Of
+## Class Boilerplate
+- getters/setters
+- constructors/assignment
+- arithmetic/comparision
+## Error Handling
+## Includes
+## Anonymous Objects
+- finally
+- lock guard
+## Includes
+## Reflection
+## Serialisation And Deserialisation
+## Unavoidable Macros
+- https://docs.microsoft.com/en-us/cpp/preprocessor/predefined-macros
+- https://gcc.gnu.org/onlinedocs/cpp/Predefined-Macros.html#Predefined-Macros
+- https://en.cppreference.com/w/cpp/preprocessor/replace#Predefined_macros
+## Minimal Macros
+- only put the essence of the macro in the macro, use standard C++ for the rest

@@ -2,7 +2,7 @@
 title: About
 ---
 
-I'm a freelance software developper living in Charlotte, NC.
+I'm a Software Engineer at [Nitro](https://gonitro.com), currently living in county Meath, Ireland.
 
 * Email: <div position="relative" style="display:inline-block">atnnn.com <div style="float:left">etienne@</div></div>
 * IRC: AtnNn on irc.freenode.net

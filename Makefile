@@ -2,7 +2,7 @@ SHELL := bash
 
 sitegit := cd _site && git
 build_mode := build
-site := cabal run
+site := cabal run --
 # site := stack exec site
 
 .PHONY: all
@@ -33,7 +33,7 @@ rebuild: _site
 
 .PHONY: watch
 watch: _site
-	$(site) watch
+	$(site) watch --port=4000 --host=0.0.0.0
 
 _site: $(wildcard about.rst css/* github/* index.html posts/* contact.markdown images/* templates/*)
 	$(site) $(build_mode)
@@ -50,4 +50,4 @@ _site: $(wildcard about.rst css/* github/* index.html posts/* contact.markdown i
 	$(sitegit) add -N --all .
 
 serve:
-	warp -d _site
+	warp -p 4000 -d _site
