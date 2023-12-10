@@ -6,9 +6,8 @@ category: code
 
 This page is available over HTTP at
 [http://atnnn.com](http://atnnn.com/p/ipfs-hosting) but also over IPFS
-at
-[/ipns/atnnn.com](http://ipfs.io/ipns/atnnn.com/p/ipfs-hosting). Here's
-how I do it:
+at `http://ipfs.io/ipns/atnnn.com/p/ipfs-hosting` (edit: not any more).
+Here's how I <strike>do</strike> did it:
 
 ```bash
 ipfs name publish `ipfs add -rq ~/atnnn.com/_site | tail -n 1`

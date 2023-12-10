@@ -18,7 +18,6 @@ import GHC.IO.Encoding (setLocaleEncoding, utf8)
 - updated date for articles
 - next, previous and related articles links
 - add photo of me
-- add 404 page
 
 -}
 --------------------------------------------------------------------------------
@@ -48,15 +47,15 @@ main = do
         compile copyFileCompiler
 
     match ("files/**" .||. "images/**" .||. "font/*") $ do
-        route   idRoute
+        route idRoute
         compile copyFileCompiler
 
     match "css/*" $ do
-        route   idRoute
+        route idRoute
         compile compressCssCompiler
 
     match "about.markdown" $ do
-        route   $ noExtRoute
+        route $ noExtRoute
         compile $ pandocCompiler
             >>= loadAndApplyTemplate "templates/default.html" defaultContext
             >>= relativizeUrls
@@ -64,24 +63,17 @@ main = do
     match "posts/*" $ do
         route $ composeRoutes noExtRoute $ customRoute $ \ident ->
             "p" ++ snd (break (=='/') $ toFilePath ident)
-        let postLayout =
-              pandocCompiler
-              >>= loadAndApplyTemplate "templates/post.html" postCtx
-              >>= loadAndApplyTemplate "templates/default.html" postCtx
-              >>= relativizeUrls
-        compile $ do
-          curId <- getUnderlying
-          categories <- parseCategories <$> getMetadataField' curId "category"
-          saveSnapshot "category" =<< makeItem categories
-          postLayout
-          
-          
+        compile $ pandocCompiler
+            >>= loadAndApplyTemplate "templates/post.html" postCtx
+            >>= saveSnapshot "content"
+            >>= loadAndApplyTemplate "templates/default.html" postCtx
+            >>= relativizeUrls
 
     match "index.html" $ do
         route idRoute
         compile $ do
             posts <- recentFirst =<< loadAll "posts/*"
-            
+
             let indexCtx =
                     listField "posts" postCtx (return posts) `mappend`
                     defaultContext
@@ -91,8 +83,21 @@ main = do
                 >>= loadAndApplyTemplate "templates/default.html" indexCtx
                 >>= relativizeUrls
 
-    match "templates/*" $ compile templateCompiler
+    match "404.html" $ do
+      route idRoute
+      compile $ getResourceBody
+        >>= loadAndApplyTemplate "templates/default.html" defaultContext
+        >>= relativizeUrls
 
+    create ["atom.xml"] $ do
+      route idRoute
+      compile $ do
+        let feedCtx = postCtx `mappend` bodyField "description"
+        posts <- fmap (take 10) . recentFirst =<<
+          loadAllSnapshots "posts/*" "content"
+        renderAtom feedConfiguration feedCtx posts
+
+    match "templates/*" $ compile templateCompiler
 
 --------------------------------------------------------------------------------
 postCtx :: Context String
@@ -105,9 +110,12 @@ postCtx =
                                 else route)
     <> defaultContext
 
-parseCategories :: String -> [String]
-parseCategories = either (const ["misc"]) id . parse cats "category"
-  where
-    cats :: Parsec String () [String]
-    cats = spaces *> manyTill anyChar (char ',') `sepBy1` (char ',')
+feedConfiguration :: FeedConfiguration
+feedConfiguration = FeedConfiguration
+    { feedTitle       = "AtnNn.com"
+    , feedDescription = "Articles"
+    , feedAuthorName  = "Etienne Laurin"
+    , feedAuthorEmail = ""
+    , feedRoot        = "https://www.atnnn.com"
+    }
 

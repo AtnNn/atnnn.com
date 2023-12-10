@@ -2,8 +2,7 @@ SHELL := bash
 
 sitegit := cd _site && git
 build_mode := build
-site := cabal run --
-# site := stack exec site
+site := runghc site.hs
 
 .PHONY: all
 all: _site
@@ -22,11 +21,6 @@ commit: _site
 publish-web:
 	git push --all
 
-publish-ipfs:
-	hash=`ipfs add -rq _site | tail -n 1` && \
-	  echo HASH: $$hash && \
-	  ssh circus.atnnn.com bash -c $$(printf "%q" ". code/ipfs/env; ipfs pin add $$hash && ipfs name publish $$hash")
-
 .PHONY: rebuild
 rebuild: build_mode = rebuild
 rebuild: _site
@@ -35,13 +29,12 @@ rebuild: _site
 watch: _site
 	$(site) watch --port=4000 --host=0.0.0.0
 
-_site: $(wildcard about.rst css/* github/* index.html posts/* contact.markdown images/* templates/*)
+_site: $(wildcard about.rst css/* github/* index.html 404.html posts/* contact.markdown images/* templates/*)
 	$(site) $(build_mode)
 	if [[ -e _site/.git ]]; then \
 	  $(sitegit) checkout --detach --quiet; \
 	else \
 	  $(sitegit) init; \
-	  pwd;pwd;pwd; \
 	  echo "../../.git/objects" > .git/objects/info/alternates; \
 	fi
 	$(sitegit) fetch .. +gh-pages:gh-pages
