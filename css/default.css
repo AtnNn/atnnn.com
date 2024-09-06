@@ -3,17 +3,20 @@
 
 body {
     color: #070303;
-    font-size: 100%;
+    padding: 0px;
     margin: 0px auto 0px auto;
-    max-width: 45em;
+    max-width: 55em;
     font-family: dejavu-sans, sans-serif;
     background: #e0f0e4;
+    font-size: 100%;
 }
 
 div#content {
     background-color: #f6fffa;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-top: 2ex;
+    padding-bottom: 2ex;
+    padding-left: max(1rem, 5%);
+    padding-right: max(1rem, 5%);
 }
 
 div#header {
@@ -57,11 +60,6 @@ div#footer {
     font-size: 0.6em;
     padding: 2ex 1.5em 2ex 1.5em;
     text-align: right;
-}
-
-div#content {
-    padding-top: 2ex;
-    padding-bottom: 2ex;
 }
 
 div#content p {
@@ -134,3 +132,9 @@ pre {
 strong { font-weight: bold; }
 
 em { font-style: italic }
+
+blockquote {
+    margin-left: 0.2em;
+    padding-left: 0.5em;
+    border-left: 3px ridge #acc;
+}
