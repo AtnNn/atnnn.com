@@ -60,6 +60,12 @@ main = do
             >>= loadAndApplyTemplate "templates/default.html" defaultContext
             >>= relativizeUrls
 
+    match "services.markdown" $ do
+        route $ noExtRoute
+        compile $ pandocCompiler
+            >>= loadAndApplyTemplate "templates/default.html" defaultContext
+            >>= relativizeUrls
+
     match "posts/*" $ do
         route $ composeRoutes noExtRoute $ customRoute $ \ident ->
             "p" ++ snd (break (=='/') $ toFilePath ident)
